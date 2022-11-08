@@ -93,7 +93,7 @@ Section 4 concludes the paper, providing other possible practical implementation
 \subsection*{Data source}
 
 We consider the Italian mortality data available in the Human Mortality Database (HMD) over the period 1950-2018. We refer to the male population aged \color{blue}0-90, analyzing the age groups 0-29, 30-60, and 61-90 separately to provide further evidence of the differences in mortality that characterizes the younger ages, the adult ages, and the older ages. 
-We split the data set into training set (fitting period) and test set (out-of-sample forecast period) according to the common rule 70\%-30\%. We will calculate the in-sample errors using data of the training set, and the out-of-sample errors using data of the test set (not used to build the training predictor).
+We split the data set into training set and test set according to the common rule 70\%-30\%. The training set is used to obtain the parameters' estimate of each model. In the test set, we apply the parameters' estimate to evaluate the out-of-sample performance. We will calculate the out-of-sample errors using data of the test set.
 \color{black}
 The dataset partition is obtained by using the dissimilarity-based compound selection proposed in \cite{Willett1999}.
 
