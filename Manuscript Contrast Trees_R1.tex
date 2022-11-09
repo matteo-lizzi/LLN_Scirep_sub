@@ -155,7 +155,8 @@ In the following, we briefly mention some traditional diagnostic tools that are 
 \subsection*{Contrast Trees}
 \color{blue}Contrast Trees (CTs) is an innovative approach that, leveraging tree-based machine learning techniques, allows for deeply assessing the goodness-of-fit of a model by identifying where the model performs worse. \color{black}
 Specifically, the goal of the CTs method is to uncover regions in the predictor variables space presenting very high values of the error rate quantified by a discrepancy measure \cite{Friedman2020}. \color{blue}In the context of mortality modeling, the main feature that distinguishes this method from the traditional diagnostic methods mentioned above is the ability to automatically identify the regions in which a given model provides a high error for certain combinations of ages and calendar years.
-Furthermore, CTs have the advantage of being easy to interpret and can be used as a diagnostic tool to detect the inaccuracies of every kind of model, for example, both those whose parameters estimate is based on a likelihood function and those based on machine learning algorithms. \color{black}
+Furthermore, CTs have the advantage of being easy to interpret and can be used as a diagnostic tool to detect the inaccuracies of every kind of model, for example, both those whose parameters estimate is based on a likelihood function and those based on machine learning algorithms. Our analysis shows how CTs can be used for assessing the goodness-of-fit of different mortality models to observed data. 
+\color{black}
 
 Suppose to have a set of predictor variables $x = (x_1, x_2,...,x_p)$ and two outcome variables $y$ and $z$ for each $x$. We aim to find those values of $x$ for which the respective distributions of $y | x$ and $z | x$, or some statistics such as mean or quantiles, are most different. In summary, CTs provide a lack-of-fit measure for the conditional distribution $p_y(y | x)$, or some statistics.\\
 Consider the $M^{th}$ iteration, where the tree splits the space of the predictor variables into $M$ disjoint regions $\lbrace R_m\rbrace^M_{m=1}$, each one containing a subset of the data. We denote $f_m^{(l)}$ and $f_m^{(r)}$ the fraction of observations in the left and right region with respect to $R_m$, respectively. While, the quantities $d_m^{(l)}$, $d_m^{(r)}$ respectively represent the discrepancy measures associated to the fractions $f_m^{(l)}$ and $f_m^{(r)}$. Given a specified subset of the data $\lbrace x_i,y_i,z_i \rbrace_{x_i\in R_m}$, a discrepancy measure between $y$ and $z$ values can be generally defined as:
@@ -213,42 +214,38 @@ The $z$ values final estimate is then $\tilde{z}(x)=z(x)+\sum_{k=1}^{K}\delta_{m
 %\textit{Up to three levels of \textbf{subheading} are permitted. Subheadings should not be numbered.}\\
 
 We implement the analyses using the \textit{conTree} R package developed by \cite{FriedmanNarasimhan2020}.
-We set to 100 the maximum tree size corresponding to the number of regions. The choice of this parameter is not straightforward because it involves a trade-off between discrepancy and interpretability. The smaller the trees, the larger the regions (defined by simple rules and easy to be interpreted). The larger the trees, the higher the potential to uncover small high discrepancy regions (defined by complex rules).
+We set to 100 the maximum tree size corresponding to the number of regions. It is worth noting that the choice of this parameter is not straightforward because it involves a trade-off between discrepancy and interpretability. The smaller the trees, the larger the regions (defined by simple rules and easy to be interpreted). The larger the trees, the higher the potential to uncover small high discrepancy regions (defined by complex rules).
 %Pruning strategies analogous to those in classification and regression trees based on cross-validation can also be employed to guide choice of tree size.
 
-%In the following, we will show how to use CTs for assessing the accuracy of the mortality estimates provided by different models. 
-The results obtained on the test set are summarized in the lack-of-fit contrast curves, deduced by contrasting the observed data to the estimates provided by each model.
-\color{blue} These curves are shown in Fig. \ref{fig:lof} for the three different ages groups analyzed. The panels (a)-(c) of these figures refer to the lack-of-fit curves obtained without applying the Contrast Boosting (Base models), while panels (d)-(f) refer to the lack-of-fit curves obtained after applying Contrast Boosting to the output of the models (Boosted models).\\
-For the 0-29 age group (Fig. \ref{fig:lof}, panel (a) and (d)), ADD COMMENTS \color{black}
-For the 30-60 age group (Fig. \ref{fig:lof}, panel (b) and (e)), the APC model seems to best perform across all regions, as its discrepancy is consistently lower than that of other models. 
-Looking at the XGBM models, as for the effect of preprocessing, it can be observed that the model applied to preprocessed data performs better in the regions with highest average discrepancy in respect to the model applied to raw data. 
-From the scale of the graphs, we can observe that the Contrast Boosting reduces discrepancy across almost all regions for the GBM and LC models, where the relative effect of boosting is particularly evident. 
-For the 61-90 age group (Fig. \ref{fig:lof}, panel (c) and (f)), the GBM model seems by far the worst performing model. Although the application of the Contrast Boosting significantly reduces the discrepancy, the GBM remains less accurate than the other models. It should also be noted that the effect of Contrast Boosting in high-discrepancy regions for the other models is negligible, except for the APC.
+\color{blue} The models' performance results on the test set are summarized in the lack-of-fit contrast curves, deduced by contrasting the observed mortality data to the estimates provided by each model. These curves are shown in Fig. \ref{fig:lof} for the three different ages groups analyzed. The panels (a)-(c) of these figures refer to the lack-of-fit curves obtained without applying the Contrast Boosting (Base models), while panels (d)-(f) refer to the lack-of-fit curves obtained after applying Contrast Boosting to the output of the models (Boosted models).
+For the 0-29 age group (Fig. \ref{fig:lof}, panel (a) and (d)), both APC and XGBM model have the lowest discrepancy values for each fraction of observations, providing the best fitting. The average discrepancy for this age group is higher than for the 30-60 age group. The 0-29 age group is known to be characterized by high accidental mortality, the so-called “accident hump” around age 20-25, due to accidental deaths or suicides caused by increased risk-taking behavior. Mortality at age 0-29 is therefore hard to predict, and Contrast Boosting is not able to actually reduce the average discrepancy. \color{black}
+For the 30-60 age group (Fig. \ref{fig:lof}, panel (b) and (e)), the APC model seems to best perform across all regions since the discrepancy values are consistently lower than those of the other models. For the XGBM models, we can observe that the model applied to preprocessed data (XGBM prep) performs better in the regions with the highest average discrepancy with respect to the model applied to raw data. From the scale of the plots, we can see that Contrast Boosting reduces discrepancy across almost all regions for the GBM and LC models, where the relative effect of boosting is particularly evident. 
+For the 61-90 age group (Fig. \ref{fig:lof}, panel (c) and (f)), the GBM model seems by far the worst performing model. 
+Albeit the application of Contrast Boosting significantly reduces the discrepancy, the GBM continues to be less accurate than the other models. It should also be noted that the effect of Contrast Boosting in high-discrepancy regions for the other models is negligible, except for the APC.
 \begin{figure}[ht]
 \centering
 \subfloat[Base model - Age 0-29]
-{\includegraphics[width=0.33\textwidth]{lof_0}}
+{\includegraphics[width=0.31\textwidth]{lof_0}}\quad
 \subfloat[Base model - Age 30-60]
-{\includegraphics[width=0.33\textwidth]{lof}}
+{\includegraphics[width=0.31\textwidth]{lof}}\quad
 \subfloat[Base model - Age 61-90]
-{\includegraphics[width=0.33\textwidth]{lof_61}}\\
+{\includegraphics[width=0.31\textwidth]{lof_61}}\\
 \subfloat[Boosted model - Age 0-29]
-{\includegraphics[width=0.33\textwidth]{lof_0_b}}
+{\includegraphics[width=0.31\textwidth]{lof_0_b}}\quad
 \subfloat[Boosted model - Age 30-60]
-{\includegraphics[width=0.33\textwidth]{lof_b}}
+{\includegraphics[width=0.31\textwidth]{lof_b}}\quad
 \subfloat[Boosted model - Age 61-90]
-{\includegraphics[width=0.33\textwidth]{lof_61}}
-\caption{Lack-of-fit contrast curves for APC (black), LC (blue), GBM (red), XGBM (orange) and XGBM prep (green).}
+{\includegraphics[width=0.31\textwidth]{lof_61_b}}
+\caption{Lack-of-fit contrast curves for APC (red), LC (green), GBM (dark green), XGBM (blue) and XGBM prep (purple).}
 \label{fig:lof}
-\end{figure}
+\end{figure}\\
 %
 Table \ref{tab:avecri} reports the values of the average discrepancy measure for both the base and the boosted models considered in the analysis. 
-The APC model shows the lowest value of $\bar{d}_m$ for the age group 30-60, in line with the dynamics of the lack-of-fit curves depicted in the left panel of Fig. \ref{fig:lof}.
-However, the lack-of-fit curves provide more structured information than the average discrepancy, in particular, regarding how and how much $\bar{d}_m$ varies across the input space. This is clearer when comparing XGBM and APC models for the age group 61-90 in the base model: whereas the average discrepancy of these models differs for 2.6\% (0.002010 compared to 0.001960), looking at the lack-of-fit curve depicted in Fig. \ref{fig:lof} the XGBM model (orange curve) results to perform better than the APC model (black curve) in the high discrepancy regions. 
+The APC and the XGBM base models provide the lowest average discrepancy values (0.000410 and 0.000417, respectively), which remain substantially unchanged after the Contrast Boosting procedure.
+The APC model shows the lowest value of $\bar{d}_m$ also for the age group 30-60, in line with the dynamics of the lack-of-fit curves depicted in panels (b) and (e) of Fig. \ref{fig:lof}.
+However, the lack-of-fit curves provide more structured information than the average discrepancy, in particular, regarding how and how much $\bar{d}_m$ varies across the input space. \color{red}RIVEDERE This is clearer when comparing XGBM and APC models for the age group 61-90 in the base model: whereas the average discrepancy of these models differs for 2.6\% (0.002010 compared to 0.001960), looking at the lack-of-fit curve depicted in Fig. \ref{fig:lof} the XGBM model (orange curve) results to perform better than the APC model in the high discrepancy regions. \color{black}
 %Therefore, in the worst case, where the average discrepancy is high, it is less likely that \hl{XXX} produces estimates for $m_{x,t}$ far from the observed values.
-Looking at the base model at age 61-90, the GBM model shows the worst fitting to the observed data. Although the Contrast Boosting produces a strong improvement of the discrepancy, the GBM remains the worst model in terms of discrepancy.
-For the 30-60 age group in the base model, the values of $\bar{d}_m$ are quite close to each other for all the models, except for the APC model that definitely shows the lowest value.
-The Contrast Boosting strongly lowers the discrepancy between observed and estimated values for the GBM model.
+Looking at ages 61-90, the GBM base model shows the worst fitting to the observed mortality data. Although Contrast Boosting produces a strong improvement in the discrepancy measure, the GBM remains the worst model in terms of discrepancy. \color{blue}Contrast Boosting is very effective also for the GBM model in the age group 30-60, as it heavily lowers (-30\%) the average discrepancy between observed and estimated values.\color{black}
 %
 \begin{table}[ht]
 \centering
@@ -266,12 +263,11 @@ XGBM 	&	0.000417	&	0.000415	&	0\%	&	0.000240	&	0.000233	&	-3\%	&	0.001916	&	0.00
 XGBM prep 	&	0.000500	&	0.000493	&	-1\%	&	0.000268	&	0.000265	&	-1\%	&	0.002003	&	0.002005	&	0\%	\\
 \hline
 \end{tabular}
-\caption{Values of the average discrepancy $\bar{d}_m$ calculated on $m_{x,t}$.}
+\caption{Values of the average discrepancy $\bar{d}_m$ calculated on $m_{x,t}$ in the test set.}
 \label{tab:avecri}
 \end{table}\\
-For sake of comparison with the average discrepancy, we also calculate the Root Mean Square Error (RMSE) and Mean Absolute Percentage Error (MAPE) on both the base and boosted models. 
-Intuitively, all the three measures, $\bar{d}_m$, RMSE, MAPE, quantify the "distance" between the estimates and the actual observations. 
-However, the average discrepancy whose values are reported in Table \ref{tab:avecri} is an innovative measure summarizing the discrepancy over all the regions identified by the CTs, while RMSE and MAPE are commonly used error measures calculated on the overall input space without distinguishing by region. We calculate all of them out-of-sample.
+For a comparison with the average discrepancy, we also calculate the Root Mean Square Error (RMSE) and Mean Absolute Percentage Error (MAPE) on the base model and the boosted one. Intuitively, the three measures $\bar{d}_m$, RMSE, and MAPE quantify the "distance" between the estimates and the actual observations. 
+However, the average discrepancy is an innovative measure summarizing the discrepancy over all the regions identified by the CTs, while RMSE and MAPE are commonly used error measures calculated on the overall input space without distinguishing by region. 
 
 By comparing Table \ref{tab:errors} showing the values of RMSE and MAPE with Table \ref{tab:avecri} reporting the values of the average discrepancy, we note a greater convergence of the error measures in the boosted models rather than in the base models. This result is intuitively straightforward since the boosted models are obtained by just reducing the discrepancy measure. 
 %
@@ -301,7 +297,7 @@ By comparing Table \ref{tab:errors} showing the values of RMSE and MAPE with Tab
 & XGBM prep 	&	20.0\%	&	18.2\%	&	-9\%		&	7.3\%	&	7.2\%	&	-1\%		&	3.6\%	&	3.6\%	&	0\%	\\
 \hline
 \end{tabular}
-\caption{Values of the RMSE and MAPE calculated on $m_{x,t}$.}
+\caption{Values of the RMSE and MAPE calculated on $m_{x,t}$ in the test set.}
 \label{tab:errors}
 \end{table}
 %
@@ -326,7 +322,7 @@ XGBM 		&	0.195720	&	0.191478	&	-2\%		&	0.066986	&	0.062600		&	-7\%		&	0.036712	&
 XGBM prep 	&	0.207129	&	0.186137	&	-10\%	&	0.072703	&	0.072571		&	0\%		&	0.035729	&	0.035505	&	-1\%	\\
 \hline
 \end{tabular}
-\caption{Values of the average discrepancy $\bar{d}_m$ calculated on $\log{\left(m_{x,t}\right)}$.}
+\caption{Values of the average discrepancy $\bar{d}_m$ calculated on $\log{\left(m_{x,t}\right)}$ in the test set.}
 \label{tab:avecri_log}
 \end{table}\\
 %
@@ -355,15 +351,15 @@ XGBM prep 	&	0.207129	&	0.186137	&	-10\%	&	0.072703	&	0.072571		&	0\%		&	0.03572
 & XGBM 		&	2.6\%	&	2.5\%	&	-1\%		&	1.2\%	&	1.1\%	&	-4\%		&	1.2\%	&	1.3\%	&	1\%	\\
 & XGBM prep 	&	2.8\%	&	2.7\%	&	-3\%		&	1.2\%	&	1.2\%	&	0\%		&	1.2\%	&	1.2\%	&	1\%	\\\hline
 \end{tabular}
-\caption{Values of the RMSE and MAPE calculated on $\log{\left(m_{x,t}\right)}$.}
+\caption{Values of the RMSE and MAPE calculated on $\log{\left(m_{x,t}\right)}$ in the test set.}
 \label{tab:errors_log}
 \end{table}
 %
-Results of the CTs, comparing the estimates of the models with the real mortality rates, provide the discrepancy measure for each region detected by the CTs. %\hl{(Appendix)}. 
+Results of the CTs, comparing the estimates of the models with the real mortality rates, provide the discrepancy measure for each region detected by the CTs. 
 These regions can easily be identified and, if possible, interpreted, providing a further explanation to the model performances. Moreover, high-discrepancy regions can be used for assessing whether or where a model should be trusted or not. \color{blue}We show the heatmap of the error regions in Fig. \ref{fig:CT} and Fig. \ref{fig:CT2} for the base model and the boosted one, respectively. \color{black} Low discrepancy regions are painted in green, while high discrepancy regions are painted in red. 
 For the sake of image readability, we colored in purple the regions presenting a discrepancy value exceeding XXX, 6e-04, and 0.008 for the age groups 0-29, 30-60, and 61-90, respectively.
 
-\color{blue}For the age group 0-29, ADD COMMENTS \color{black} 
+\color{blue}For the age group 0-29, .... \color{black} 
 For the age group 30-60, the APC model fails to predict mortality rates for advanced ages, as do the two XGBM models. On the contrary, GBM models fail for the most recent cohorts, while the high discrepancy regions relative to the LC model present a more complicated structure. 
 If one compares the results of CTs for base and boosted GBM, the effect of boosting is quite noticeable: while the model performance is still wanting for most recent cohorts, the discrepancy is clearly reduced. A similar effect, though not as evident, is present for LC models.
 
@@ -371,7 +367,7 @@ The main features of the highest discrepancy regions, interestingly, seem to rem
 
 As for preprocessing, it seems from lack-of-fit curves and heatmaps that reduce the amount of discrepancy in low performing regions is reduced for both 30-60 and 61-90 age groups.
 
-\begin{figure}[H]
+\begin{figure}%[H]
 \centering
 \subfloat[APC (left: age 0-29; centre: age 30-60 right: age 61-90)]
 {\includegraphics[width=0.32\textwidth]{apc_0.jpeg}
@@ -397,7 +393,7 @@ As for preprocessing, it seems from lack-of-fit curves and heatmaps that reduce 
 \label{fig:CT}
 \end{figure}
 %
-\begin{figure}[H]
+\begin{figure}%[H]
 \centering
 \subfloat[APC (left: age 0-29; centre: age 30-60 right: age 61-90)]
 {\includegraphics[width=0.32\textwidth]{apc_0_b.jpeg}
@@ -516,10 +512,10 @@ Willett, P. (1999). Dissimilarity-based algorithms for selecting structurally di
 
 
 \section*{Author contributions}
-Authors equally contributed to this work
+Authors equally contributed to this work.
 
 \section*{Data availability}
-The dataset analyzed during the current study, referred to Human Mortality Database (HMD), available at \url{https://www.mortality.org/}
+The dataset analyzed during the current study, referred to Human Mortality Database (HMD), is available at \url{https://www.mortality.org/}
 
 \section*{Competing interests}
 The authors declare no competing interests.
