@@ -63,23 +63,25 @@ The results are discussed using both graphical and numerical tools, with particu
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %The life expectancy rise that has occurred in the last decades constitutes a great conquest but contemporarily creates substantial challenges for life insurers and social security schemes providing benefits related to illness, or survival of people. Important policy decisions are based on the human longevity reliable estimates, and public pension policies are a prime example. Thereby, understanding longevity dynamics over age and time is crucial, as they are one of the driving forces of population change. 
-Since 1980, innovative approaches and developments in mortality modeling have been constantly proposed. Mortality analysis has received a considerable contribution from statistical science, building solid foundations for the evolution of mortality methods. Estimating longevity is not straightforward; accuracy depends on the particular situation or trends, but it is not clear when a method will perform best. Indeed, new mortality forecasting techniques will appear in the literature but may take years before they can be fully evaluated. As proposed by \cite{Booth}, the accuracy of population estimates should be regularly tested establishing the improvement evidence. Researchers appear to be more focused on technical progress in methods rather than on the accuracy of the estimation they provide, in particular minimizing the bias.
+Since 1980, innovative approaches and developments in mortality modeling have been constantly proposed. 
+Mortality analysis has received a considerable contribution from statistical science, building solid foundations for the evolution of mortality methods. Estimating longevity is not straightforward; accuracy depends on the particular situation or trends, and it is not easy to comprehend when a method will good perform. Indeed, new mortality \color{red}forecasting \color{black} techniques will appear in the literature but may take years before they can be fully evaluated. As stated by \cite{Booth}, the accuracy of mortality estimates should be regularly tested to set the improvement evidence. Researchers appear to be more focused on technical progress of a method rather than on the accuracy of the estimation provided, focusing on minimizing the bias.
 
-Several approaches have been used to model mortality surface, determining how death rates change over time. Until the 1980s, mortality models were relatively simple and involved a fair degree of subjective judgment (for a review see \cite{Pollard}). The growing availability of reliable data, in lockstep with the improvement of statistical-mathematical methods, has allowed the creation of ever-finer mortality forecasting models. According to \cite{Booth}, literature would suggest three approaches to demographic modeling. The first one (explanation) makes use of structural or epidemiological models from certain causes of death. A classic example is the dependence of lung cancer on tobacco smoking. The second one (expectation) is based on subjective expert opinion, involving varying degrees of formality. Finally, the third and most commonly used approach is extrapolative, using the regularity typically found in both age patterns and trends over time.
-This approach includes the more complex stochastic models such as the Lee-Carter \cite{LC92} and, more in general, the Generalized Age Period Cohort (GAPC) model. Despite the Lee-Carter model being widely recognized as the cornerstone of mortality modeling and forecasting, over the last decade, scholars have suggested additional approaches that have also gained interest in the academic world \cite{BDV2002,RH,CBD06,CBD09}.
+Several approaches have been used to model the mortality surface, determining how death rates change over time. Until the 1980s, mortality models were relatively simple and involved a fair degree of subjective judgment (see \cite{Pollard} for a detailed review on this aspect). The growing availability of reliable data, in lockstep with the improvement of statistical-mathematical methods, has allowed the creation of ever-finer mortality models. According to \cite{Booth}, literature would suggest three approaches to demographic modeling. 
+The first one (explanation) makes use of structural or epidemiological models from certain causes of death. A classic example is the dependence of lung cancer on tobacco smoking. The second one (expectation) is based on subjective expert opinion, involving varying degrees of formality. Finally, the third and most commonly used approach is extrapolative, using the regularity typically found in age patterns and trends over time.
+This approach includes the more complex stochastic mortality models such as the Lee-Carter \cite{LC92} and, more generally, the Generalized Age Period Cohort (GAPC) model. Despite the Lee-Carter model being widely recognized as the cornerstone of mortality modeling and forecasting, over the last decade, scholars suggested additional approaches that also gained interest in the academic world \cite{BDV2002,RH,CBD06,CBD09}.
 
-Despite models like the Lee-Carter and its variants having been widely used, becoming a benchmark for many newly proposed methodologies, they present several shortfalls, however. 
-In this line, \cite{CBD08} tried to address the issue of what would be the best way to estimate mortality, exhibiting interesting criteria that a good mortality model should hold. They basically referred to good-practice guidelines such as the consistency with historical data and the long-term dynamics, biologically reasonable. Following this line of research, recent longevity literature stimulated the use of machine learning techniques in demographic research allowing the integration of stochastic models into a data-driven approach. 
+Despite models like the Lee-Carter and its variants having been widely used, becoming a benchmark for many newly proposed methodologies, they present several shortfalls. In this line, \cite{CBD08} tried to address the issue of what would be the best way to estimate mortality, exhibiting interesting criteria that a good mortality model should hold. They referred to good-practice guidelines such as the consistency with historical data and the long-term dynamics, biologically reasonable. Following this line of research, recent longevity literature stimulated the use of machine learning techniques in demographic research allowing the integration of stochastic models into a data-driven approach. 
 
-The significant reduction in the forecasting error reached by the application of machine learning techniques became particularly useful for both researchers and practitioners. The main contributions are from \cite{Deprez}, \cite{LevPiz} and \cite{LevNi}. The common idea behind all these works is to improve the fitting accuracy of canonical models using machine learning algorithms. In other words, to correct the mortality surface produced by standard stochastic mortality models. All of the proposed methods, calibrate a machine learning estimator used to adjust (and improve) the mortality rates estimated by the original mortality model. Those authors show that mortality modeling can benefit from machine learning that better captures patterns that traditional models do not identify. 
+The significant reduction in the forecasting error reached by the application of machine learning techniques became particularly useful for both researchers and practitioners. The main contributions are from \cite{Deprez}, \cite{LevPiz} and \cite{LevNi}. The common idea behind all these works is to improve the fitting accuracy of canonical models using machine learning algorithms. In other words, to correct the mortality surface produced by standard stochastic mortality models. All of the proposed methods calibrate a machine learning estimator used to adjust (and improve) mortality rates estimated by the original mortality model. Those authors show that mortality modeling can benefit from machine learning as it better captures patterns that traditional models do not identify. 
 
-The need for new models that can understand mortality improvements more accurately than canonical tools is evident. 
-This paper contributes to the literature on mortality evaluation by introducing an innovative approach based on machine learning techniques that demographers have not yet explored, contributing to the undervalued field of models assessment. 
+\color{red}The need for new models that can understand mortality evolution more accurately than canonical tools is evident. COMMENTO: IL CONTRAST TREE COME PUO' ESSERE UTILE A SVILUPPARE UN MODELLO MIGLIORE? A deeper mortality assessment? \color{black}
+
+This paper contributes to the literature on mortality modeling by introducing an innovative approach based on machine learning techniques that demographers have not yet explored, contributing to the undervalued field of model assessment. 
 \color{blue}
 We provide an application of the method proposed by \cite{Friedman2020}, namely Contrast Trees, which helps evaluate the accuracy of the mortality estimates (fitted mortality rates) given by models that are not treatable with model selection criteria based on the likelihood function. Therefore, this technique provides a unified framework for assessing and comparing the goodness-of-fit to historical data of traditional mortality models with machine learning algorithms.
 \color{black}
 Moreover, in addition to evaluating the accuracy of the models, the Contrast Trees enables improving the performance of the models through a boosting procedure that reduces the inaccuracies. We use this methodology, namely Contrast Boosting, to improve \color{blue}the fitting of historical mortality data.
-To summarize, through this new technique based on Contrast Trees, we aim to find the best model that fits historical mortality rates by grasping and detecting the inaccuracies of any model and boosting its predictive power. \color{black}
+To summarize, through this new technique based on Contrast Trees, we aim to find the best model that fits observed mortality rates by grasping and detecting the inaccuracies of any model and boosting its predictive power. \color{black}
 
 The remainder of this paper is organized as follows: Section 2 introduces the model framework, both Contrast Trees and Contrast Boosting. 
 In Section 3, we describe the numerical implementation, also providing an overview of the mortality models, expressed in a regression framework, which we assess by the Contrast Trees approach. We devote a specific sub-section to explanation and discussion of the numerical results. 
@@ -93,12 +95,13 @@ Section 4 concludes the paper, providing other possible practical implementation
 \subsection*{Data source}
 
 We consider the Italian mortality data available in the Human Mortality Database (HMD) over the period 1950-2018. We refer to the male population aged \color{blue}0-90, analyzing the age groups 0-29, 30-60, and 61-90 separately to provide further evidence of the differences in mortality that characterizes the younger ages, the adult ages, and the older ages. 
-We split the data set into training set and test set according to the common rule 70\%-30\%. The training set is used to obtain the parameters' estimate of each model. In the test set, we apply the parameters' estimate to evaluate the out-of-sample performance. We will calculate the out-of-sample errors using data of the test set.
+We split the data set into a training set and a test set according to the common splitting rule 70\%-30\%. 
+We use the training set to obtain the parameters' estimate of each model. We apply the parameters' estimate in the test set to evaluate the out-of-sample performance. Finally, we will calculate the out-of-sample errors using data from the test set.
 \color{black}
 The dataset partition is obtained by using the dissimilarity-based compound selection proposed in \cite{Willett1999}.
 
 \subsection*{Mortality rate}
-We calculate the age-specific central death rates for each year $t$ according yo the following formula:
+We calculate the central death rates $m_{x,t}$ for each age $x$ and year $t$ according to the following formula:
 \begin{equation} 
 \label{eq:mxt}
 m_{x,t}=\frac{D_{x,t}}{E_{x,t}}
@@ -106,9 +109,8 @@ m_{x,t}=\frac{D_{x,t}}{E_{x,t}}
 Where $D_{x,t}$ is the number of deaths aged $x$ in year $t$, and $E_{x,t}$ are the exposures-to-risk aged $x$ in year $t$.
 
 \subsection*{Mortality models}
-In this section, we describe the four models to which the Contrast Trees methodology is applied to evaluate their quality of fit.
+\color{blue}In the following, we briefly describe the four models to which the Contrast Trees methodology is applied. The scope is to evaluate the models' quality of fit. \color{black}
 The first two models belong to the family of generalized age-period-cohort (GAPC) that are expressed in a regression framework to be suitable for applying Contrast Trees, which requires data organized in columns. The last two are well-known machine learning techniques also used for regression tasks.\\
-In the following, we provide the models' specifications and brief descriptions.
 
 \subsubsection*{Lee-Carter (LC) model}
 The original LC model\cite{LC92} assumes that:
@@ -116,13 +118,13 @@ The original LC model\cite{LC92} assumes that:
 \label{eq:LC}
 \log{\left(m_{x,t}\right)}=\alpha_{x}+\beta_{x} \kappa_{t}
 \end{equation}
-The age-specific parameter $\alpha_x$ provides the average age profile of mortality, the age-period term $\beta_{x}\cdot\kappa_t$ describes the mortality trends, with $\kappa_t$ the time index and $\beta_{x}$ modifying the effect of $\kappa_t$ across ages. The model is subject to the following constraints on $\kappa_t$ and $\beta_x$: $\sum_{t \in \mathcal{T}}{\kappa_t}=0 \quad \sum_{x \in \mathcal{X}}{\beta_x}=1$.
-Future mortality rates are obtained by modeling the time index $\kappa_{t}$ through an autoregressive integrated moving average (ARIMA) process. In general, a random walk with drift properly fits the data. \\
+The age-specific parameter $\alpha_x$ provides the average age profile of mortality, the age-period term $\beta_{x}\cdot\kappa_t$ describes the mortality trends, with $\kappa_t$ the time index and $\beta_{x}$ modifying the effect of $\kappa_t$ across ages. The model is subject to the following constraints on $\kappa_t$ and $\beta_x$: $\sum_{t}{\kappa_t}=0$ and $\sum_{x}{\beta_x}=1$.
+%Future mortality rates are obtained by modeling the time index $\kappa_{t}$ through an autoregressive integrated moving average (ARIMA) process. In general, a random walk with drift properly fits the data. \\
 %\begin{equation} 
 %\kappa_{t} = \kappa_{t-1} + \delta + \epsilon_t, \quad \epsilon_t \sim N(0, \sigma^{2}_k)
 %\end{equation}
 %where $\delta$ is the drift parameter and $\epsilon_t$ are the error terms, normally distributed with null mean and variance $\sigma^{2}_k$.
-\color{blue}The LC model can be reformulated into a Generalized Non-linear Models (GNM) framework following the approach proposed by \cite{BDV2002} assuming that deaths are independent Poisson distributed. The authors use a GNM and apply the maximum likelihood method to fit the model to historical data. Under this specification, the LC model can be seen as a regression model where mortality rates are the target variable, predicted using features (age and time) \cite{RichmanWuthrich}. \color{black}
+\color{blue}The LC model can be reformulated into a Generalized Non-linear Model (GNM) framework, as in \cite{Villegas2018}, following the approach proposed by \cite{BDV2002}, which assume that deaths are independent Poisson distributed. The authors use a GNM and apply the maximum likelihood method to fit the model to historical data. Under this specification, the LC model can be seen as a non-linear regression model where mortality rates are the target variable, predicted using features (age and time) \cite{RichmanWuthrich}. \color{black}
 
 \subsubsection*{Age-Period-Cohort (APC)}
 We use the model's version reformulated into a Generalized Linear Models (GLM) framework \cite{Alai2014}:
@@ -130,32 +132,32 @@ We use the model's version reformulated into a Generalized Linear Models (GLM) f
 \label{eq:APC}
 \color{blue} \log{\left(m_{x,t}\right)}=\beta_{0} +\beta_{1,x}+\beta_{2,t} +\beta_{3,t-x}
 \end{equation}
-Where the regression coefficients $\beta_{1,x}$, $\beta_{2,t}$, \color{blue}$\beta_{3,t-x}$\color{black} are the age trend, the period trend and the cohort trend \color{blue}($t-x$ represents the year of birth)\color{black}.
+Where the regression coefficients $\beta_{1,x}$, $\beta_{2,t}$, \color{blue}$\beta_{3,t-x}$ \color{black} are the age trend, the period trend and the cohort trend \color{blue}($t-x$ represents the year of birth)\color{black}.
 
 \subsubsection*{Gradient Boosting Machine (GBM)}
-A tree-based algorithm proposed by \cite{Friedman} that uses fixed size decision trees as weak learners. The prediction is obtained by a sequential approach, where each decision tree uses the information from the previous one to improve the current fit. Given a current model fit, $F_{m}(\mathbf{x})$, the algorithm provides a new estimate, $F_{m+1}(\mathbf{x})=F_{m}(\mathbf{x})+ h_m(\mathbf{x})$, where $h_m(\mathbf{x})$ is the weak learner fitted on the model residuals $y-F_{m}(\mathbf{x})$ with $y$ target variable.
+GBM is a tree-based algorithm proposed by \cite{Friedman} that uses fixed-size decision trees as weak learners. The prediction is obtained by a sequential approach, where each decision tree uses the information from the previous one to improve the current fit. Given a current model fit, $F_{m}(\mathbf{x})$, the algorithm provides a new estimate, $F_{m+1}(\mathbf{x})=F_{m}(\mathbf{x})+ h_m(\mathbf{x})$, where $h_m(\mathbf{x})$ is the weak learner fitted on the model residuals $y-F_{m}(\mathbf{x})$ with $y$ target variable.
 
 \subsubsection*{eXtreme Gradient Boosting Machine (XGBM)}
-An efficient implementation of gradient boosting decision trees proposed by \cite{Chen}, and designed to be fast to execute and highly effective. To verify if a simple data preprocessing has some meaningful effect on the quality of models, we apply XGBM to both raw and preprocessed data: the latter is obtained by centering and scaling the raw data using mean and standard deviation.
+XGBM is an efficient implementation of gradient boosting decision trees proposed by \cite{Chen}, and designed to be fast to execute and highly effective. To verify if a simple data preprocessing has some meaningful effect on the quality of models, we apply XGBM to both raw and preprocessed data: the latter is obtained by centering and scaling the raw data using mean and standard deviation.
 
 \color{blue}
 \subsection*{Traditional diagnostic tools}
 In the following, we briefly mention some traditional diagnostic tools that are often used in the literature to assess the goodness-of-fit of a mortality model. 
 \begin{itemize}
-\item Analysis of mortality residuals (or standardized mortality residuals) calculated as the difference between the crude estimate of mortality rate by age and year based on observed data and the corresponding estimated mortality rate using a specified mortality model. For example, \cite{Cairns2010} verified that they are consistent with the hypothesis of i.i.d. N(0,1) and have zero correlation both across adjacent ages and across adjacent years.
+\item Analysis of mortality residuals (or standardized mortality residuals) calculated as the difference between the crude estimate of mortality rate by age and year based on observed data and the corresponding estimated mortality rate using a specified mortality model. For example, \cite{Cairns2010} verified that they are consistent with the hypothesis of i.i.d. $N(0,1)$ and have zero correlation both across adjacent ages and across adjacent years.
 \item Proportion of variance explained ($R^2$) by the model or the parameters of the model (see, e.g., \cite{Bongaarts2005})
-\item Model selection criteria that penalize the log-likelihood with the increase in number of parameters: Akaike Information Criterion (AIC), Schwarz-Bayes Criterion (SBC) (or Bayes Information Criterion (BIC)) and Likelihood-ratio test (LRT) (\cite{Li2009}). Note that in this case the evaluation of the goodness-of-fit is given on the basis of the log-likelihood.
+\item Model selection criteria that penalize the log-likelihood with the increase in number of parameters: Akaike Information Criterion (AIC), Schwarz-Bayes Criterion (SBC) (or Bayes Information Criterion (BIC)) and Likelihood-ratio test (LRT) \cite{Li2009}. Note that in this case the evaluation of the goodness-of-fit is given on the basis of the log-likelihood. 
+\item Qualitative model selection criteria: \cite{CBD08} provide a list of criteria that might be considered desirable in a mortality model, such as, e.g., ease of implementation, parsimony, and transparency. Relating to the fitting ability to the observed data, the model should be consistent with historical data, and parameter estimates should be robust relative to the range of data used. For example, \cite{Djeundje2022} consider consistency, stability, and parsimony in addition to standard goodness-of-fit indices (deviance residual, BIC, and residual patterns).
 \item Checking for the absence of autocorrelation in the residuals of the model by the Portmanteau test (see, e.g., \cite{Torri2011}).
 \end{itemize}
 \color{black}
 
 \subsection*{Contrast Trees}
+\color{blue}Contrast Trees (CTs) is an innovative approach that, leveraging tree-based machine learning techniques, allows for deeply assessing the goodness-of-fit of a model by identifying where the model performs worse. \color{black}
+Specifically, the goal of the CTs method is to uncover regions in the predictor variables space presenting very high values of the error rate quantified by a discrepancy measure \cite{Friedman2020}. \color{blue}In the context of mortality modeling, the main feature that distinguishes this method from the traditional diagnostic methods mentioned above is the ability to automatically identify the regions in which a given model provides a high error for certain combinations of ages and calendar years.
+Furthermore, CTs have the advantage of being easy to interpret and can be used as a diagnostic tool to detect the inaccuracies of every kind of model, for example, both those whose parameters estimate is based on a likelihood function and those based on machine learning algorithms. \color{black}
 
-The goal of the Contrast Trees (CTs) method is to uncover regions in the predictor variables space that present very high values of the error rate quantified by a discrepancy measure \cite{Friedman2020}.
-CTs are easy to be interpreted and can be used as diagnostic tools to detect the inaccuracies of models engendered by any learning method. 
-
-Suppose to have a set of predictor variables $x = (x_1, x_2,...,x_p)$ and two outcome variables $y$ and $z$ for each $x$. We aim to find those values of $x$ for which the respective distributions of $y | x$ and $z | x$, or some statistics such as mean or quantiles, are most different. In summary, CTs provide a lack-of-fit measure for the conditional distribution $p_y(y | x)$, or some statistics.
-
+Suppose to have a set of predictor variables $x = (x_1, x_2,...,x_p)$ and two outcome variables $y$ and $z$ for each $x$. We aim to find those values of $x$ for which the respective distributions of $y | x$ and $z | x$, or some statistics such as mean or quantiles, are most different. In summary, CTs provide a lack-of-fit measure for the conditional distribution $p_y(y | x)$, or some statistics.\\
 Consider the $M^{th}$ iteration, where the tree splits the space of the predictor variables into $M$ disjoint regions $\lbrace R_m\rbrace^M_{m=1}$, each one containing a subset of the data. We denote $f_m^{(l)}$ and $f_m^{(r)}$ the fraction of observations in the left and right region with respect to $R_m$, respectively. While, the quantities $d_m^{(l)}$, $d_m^{(r)}$ respectively represent the discrepancy measures associated to the fractions $f_m^{(l)}$ and $f_m^{(r)}$. Given a specified subset of the data $\lbrace x_i,y_i,z_i \rbrace_{x_i\in R_m}$, a discrepancy measure between $y$ and $z$ values can be generally defined as:
 \begin{equation}
 \label{eq:dm}
@@ -198,9 +200,9 @@ Looking at the ordinate-axis, the leftmost point on each curve represents the $\
 
 \subsection*{Contrast Boosting}
 
-To improve the models, \cite{Friedman2020} proposes a contrast-boosting strategy that, dealing with the uncovered errors, can enable the regression models to provide more accurate predictions. 
+To improve the models accuracy, \cite{Friedman2020} proposes a contrast-boosting strategy that, dealing with the uncovered errors, can enable the regression models to provide more accurate predictions. 
 Contrast Boosting works by gradually modifying a starting value of $z$ to reducing its discrepancy with $y$ over the data. The resulting prediction is then affected by these modifications on the initial value of $z$.
-Specifically, we consider the estimation Contrast Boosting, which takes $z$ as an estimate of a parameter of the full conditional distribution of a target variable given a set of predictor variables, $p_y(y | x)$.
+We consider the estimation Contrast Boosting, which takes $z$ as an estimate of a parameter of the full conditional distribution of a target variable given a set of predictor variables, $p_y(y | x)$.
 The procedure consists of modifying the $z$ values within a certain region $R_m^{(1)}$ of a CT, so that its discrepancy with $y$ is zero, i.e. to set $d_m=0$ in Eq. \ref{eq:dm}.
 This is an iterative procedure, where the first modification is from $z$ to $z^{(1)}=z+\delta^{(1)}_m$ for $x\in R^{(1)}_m$, the second from $z^{(1)}$ to $z^{(2)}=z+\delta^{(2)}_m$ for $x\in R^{(2)}_m$, and so on.
 The $z$ values final estimate is then $\tilde{z}(x)=z(x)+\sum_{k=1}^{K}\delta_{m}^{(k)}$, where $K$ are the maximum number of iterations. In practice, each updated value of $z$ is contrasted with $y$ producing new regions $R^{(k)}_m$ ($1\leq k\leq K$) with corresponding updates $\delta_{m}^{(k)}$.
@@ -210,12 +212,11 @@ The $z$ values final estimate is then $\tilde{z}(x)=z(x)+\sum_{k=1}^{K}\delta_{m
 %-------------------------------------------------------------
 %\textit{Up to three levels of \textbf{subheading} are permitted. Subheadings should not be numbered.}\\
 
-The analyses have been implemented via the \textit{conTree} R package developed by \cite{FriedmanNarasimhan2020}.
-The maximum tree size that corresponds to the number of regions is set to 100. The choice of this parameter is not straightforward as it involves a trade-off between discrepancy and interpretability.
-Smaller trees give rise to larger regions defined by simpler conjunctive rules and are thereby easier to interpret. Larger trees have the potential to uncover smaller regions of higher discrepancy defined by more complex rules.
+We implement the analyses using the \textit{conTree} R package developed by \cite{FriedmanNarasimhan2020}.
+We set to 100 the maximum tree size corresponding to the number of regions. The choice of this parameter is not straightforward because it involves a trade-off between discrepancy and interpretability. The smaller the trees, the larger the regions (defined by simple rules and easy to be interpreted). The larger the trees, the higher the potential to uncover small high discrepancy regions (defined by complex rules).
 %Pruning strategies analogous to those in classification and regression trees based on cross-validation can also be employed to guide choice of tree size.
 
-In the following, we will show how to use CTs for assessing the accuracy of the mortality estimates provided by different models. 
+%In the following, we will show how to use CTs for assessing the accuracy of the mortality estimates provided by different models. 
 The results obtained on the test set are summarized in the lack-of-fit contrast curves, deduced by contrasting the observed data to the estimates provided by each model.
 \color{blue} These curves are shown in Fig. \ref{fig:lof} for the three different ages groups analyzed. The panels (a)-(c) of these figures refer to the lack-of-fit curves obtained without applying the Contrast Boosting (Base models), while panels (d)-(f) refer to the lack-of-fit curves obtained after applying Contrast Boosting to the output of the models (Boosted models).\\
 For the 0-29 age group (Fig. \ref{fig:lof}, panel (a) and (d)), ADD COMMENTS \color{black}
@@ -226,17 +227,17 @@ For the 61-90 age group (Fig. \ref{fig:lof}, panel (c) and (f)), the GBM model s
 \begin{figure}[ht]
 \centering
 \subfloat[Base model - Age 0-29]
-{\includegraphics[width=0.3\textwidth]{lof_0}}
+{\includegraphics[width=0.33\textwidth]{lof_0}}
 \subfloat[Base model - Age 30-60]
-{\includegraphics[width=0.3\textwidth]{lof}}
+{\includegraphics[width=0.33\textwidth]{lof}}
 \subfloat[Base model - Age 61-90]
-{\includegraphics[width=0.3\textwidth]{lof_61_base}}\\
+{\includegraphics[width=0.33\textwidth]{lof_61}}\\
 \subfloat[Boosted model - Age 0-29]
-{\includegraphics[width=0.3\textwidth]{lof_0_b}}
+{\includegraphics[width=0.33\textwidth]{lof_0_b}}
 \subfloat[Boosted model - Age 30-60]
-{\includegraphics[width=0.3\textwidth]{lof_b}}
+{\includegraphics[width=0.33\textwidth]{lof_b}}
 \subfloat[Boosted model - Age 61-90]
-{\includegraphics[width=0.3\textwidth]{lof_61_boosted}}
+{\includegraphics[width=0.33\textwidth]{lof_61}}
 \caption{Lack-of-fit contrast curves for APC (black), LC (blue), GBM (red), XGBM (orange) and XGBM prep (green).}
 \label{fig:lof}
 \end{figure}
@@ -263,14 +264,9 @@ LC 	&	0.000571	&	0.000568	&	0\%	&	0.000231	&	0.000232	&	0\%	&	0.002395	&	0.00231
 GBM 	&	0.000473	&	0.000459	&	-3\%	&	0.000320	&	0.000225	&	-30\%	&	0.006525	&	0.003238	&	-50\%	\\
 XGBM 	&	0.000417	&	0.000415	&	0\%	&	0.000240	&	0.000233	&	-3\%	&	0.001916	&	0.001940	&	1\%	\\
 XGBM prep 	&	0.000500	&	0.000493	&	-1\%	&	0.000268	&	0.000265	&	-1\%	&	0.002003	&	0.002005	&	0\%	\\
-%APC 		&	0.000150	(1)	&	0.000147 (1)	&	-2\%	&	0.002010 (3)	&	0.001740 (1)	&	-13\%\\
-%LC 		&	0.000229	(2)	&	0.000208 (3) 	&	-9\%	&	0.002130 (4)	&	0.002070 (4)	&	-3\%	\\
-%GBM 		&	0.000241	(3)	&	0.000167 (2)	&	-31\%&	0.006230 (5)	&	0.003400 (5)	&	-45\%\\
-%XGBM 		&	0.000283	(5)	&	0.000278 (5)	&	-2\%	&	0.001960 (1)	&	0.001950 (2)	&	-1\%	\\
-%XGBM prep 	&	0.000281	(4)	&	0.000272 (4)	&	-3\%	&	0.001970 (2) 	&	0.001970 (3)	&	0\%	\\
 \hline
 \end{tabular}
-\caption{Values of the average discrepancy $\bar{d}_m$}
+\caption{Values of the average discrepancy $\bar{d}_m$ calculated on $m_{x,t}$.}
 \label{tab:avecri}
 \end{table}\\
 For sake of comparison with the average discrepancy, we also calculate the Root Mean Square Error (RMSE) and Mean Absolute Percentage Error (MAPE) on both the base and boosted models. 
@@ -293,39 +289,19 @@ By comparing Table \ref{tab:errors} showing the values of RMSE and MAPE with Tab
 & GBM 	&	0.001648	&	0.001647	&	0\%	&	0.000640	&	0.000455	&	-29\%	&	0.012248	&	0.005439	&	-56\%	\\
 & XGBM 	&	0.001517	&	0.001515	&	0\%	&	0.000342	&	0.000338	&	-1\%	&	0.003260	&	0.003278	&	1\%	\\
 & XGBM prep 	&	0.001939	&	0.001935	&	0\%	&	0.000391	&	0.000386	&	-1\%	&	0.003339	&	0.003345	&	0\%	\\
-%APC 		&	0.000249	(1) 	& 0.000246	(1) 	& -1\% 	& 0.003796 	(4) & 0.003631	(3) & -4\%\\
-%LC 		&	0.000352	(2) 	& 0.000332	(3) 	& -6\% 	& 0.003779 	(3) & 0.003851	(4) & 2\%\\
-%GBM 		&	0.000465	(5) 	& 0.000294	(2) 	& -37\% 	& 0.012344 	(5) & 0.006111	(5) & -50\%\\
-%XGBM 		&	0.000379	(4)	& 0.000379	(5) 	& 0\% 	& 0.003070 	(2) & 0.003063	(2) & 0\%\\
-%XGBM prep 	&	0.000373	(3) 	& 0.000370	(4) 	& -1\% 	& 0.003047 	(1) & 0.003047	(1) & 0\%\\ 
-%\hline
-%\end{tabular}
-%\caption{Values of the RMSE}
-%\label{tab:rmse}
-%\end{table}
-%%
-%\begin{table}[ht]
-%\centering
-%\footnotesize
-%\begin{tabular}{|l|l|r|r|r|r|r|r|r|r|r|}
-%\hline
-%\multirow{2}{*}{Error} & \multirow{2}{*}{Model} & \multicolumn{3}{c|}{Age 0-29} & \multicolumn{3}{c|}{Age 30-60} & \multicolumn{3}{c|}{Age 61-90} \\
-%\cline{3-11}
-%&			&	Base 	&	Boosted 	& \% Change &	Base 	&	Boosted 	& \% Change &	Base 	&	Boosted	& \% Change\\
+\hline
+\multirow{2}{*}{Error} & \multirow{2}{*}{Model} & \multicolumn{3}{c|}{Age 0-29} & \multicolumn{3}{c|}{Age 30-60} & \multicolumn{3}{c|}{Age 61-90} \\
+\cline{3-11}
+&			&	Base 	&	Boosted 	& \% Change &	Base 	&	Boosted 	& \% Change &	Base 	&	Boosted	& \% Change\\
 \hline
 \multirow{5}{*}{MAPE}  & APC 			&	14.7\%	&	14.5\%	&	-1\%		&	4.5\%	&	4.3\%	&	-3\%		&	3.9\%	&	3.4\%	&	-14\% \\
 & LC 			&	14.2\%	&	13.8\%	&	-3\%		&	7.2\%	&	7.1\%	&	-1\%		&	4.9\%	&	4.9\%	&	0\%	\\
 & GBM 		&	23.4\%	&	18.8\%	&	-20\%	&	13.0\%	&	7.6\%	&	-41\%	&	18.3\%	&	9.2\%	&	-50\% \\
 & XGBM 		&	15.9\%	&	15.3\%	&	-3\%		&	6.9\%	&	6.2\%	&	-10\%	&	3.7\%	&	3.8\%	&	2\%	\\
 & XGBM prep 	&	20.0\%	&	18.2\%	&	-9\%		&	7.3\%	&	7.2\%	&	-1\%		&	3.6\%	&	3.6\%	&	0\%	\\
-%APC 		&	4.4\%	(1) & 4.3\%	(1) 	& -2\% 	& 3.7\%	(3) & 3.1\%	(1) & -18\%\\
-%LC 		&	6.9\%	(3) & 5.9\%	(3) 	& -15\% 	& 4.7\%	(4) & 4.6\%	(4) & -3\%\\
-%GBM		&	10.3\%	(5) & 5.7\%	(2) 	& -44\% 	& 17.7\%	(5) & 11.6\%	(5) & -35\%\\
-%XGBM		&	7.2\%	(4) & 6.9\%	(5) 	& -5\% 	& 3.6\%	(2) & 3.5\%	(3) & -1\%\\
-%XGBM prep	&	6.9\%	(2) & 6.5\%	(4) 	& -6\% 	& 3.5\%	(1) & 3.5\%	(2) & 0\%\\ 
 \hline
 \end{tabular}
-\caption{Values of the RMSE and MAPE}
+\caption{Values of the RMSE and MAPE calculated on $m_{x,t}$.}
 \label{tab:errors}
 \end{table}
 %
@@ -333,9 +309,61 @@ By comparing Table \ref{tab:errors} showing the values of RMSE and MAPE with Tab
 We also calculate average discrepancy, RMSE, and MAPE on the logarithm of the central death rates (Table \ref{tab:avecri_log}, \ref{tab:errors_log}. 
 These measures assign a relatively large weight to errors at young ages, while error measures calculated on the central death rates assign a large weight to errors at older ages.
 \color{black} 
+%
+\begin{table}[ht]
+\centering
+\footnotesize
+\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|}
+\hline
+\multirow{2}{*}{Model} & \multicolumn{3}{c|}{Age 0-29} & \multicolumn{3}{c|}{Age 30-60} & \multicolumn{3}{c|}{Age 61-90} \\
+\cline{2-10}
+			&	Base 	&	Boosted 	& \% Change &	Base 	&	Boosted 	& \% Change &	Base 	&	Boosted	& \% Change\\
+\hline
+APC 			&	0.149906	&	0.148218	&	-1\%		&	0.040837	&	0.040276		&	-1\%		&	0.036633	&	0.035584	&	-3\%	\\
+LC 			&	0.151968	&	0.149051	&	-2\%		&	0.066676	&	0.070489		&	6\%		&	0.042757	&	0.039114	&	-9\%	\\
+GBM 		&	0.292233	&	0.260784	&	-11\%	&	0.109899	&	0.052510		&	-52\%	&	0.118491	&	0.052240	&	-56\% \\
+XGBM 		&	0.195720	&	0.191478	&	-2\%		&	0.066986	&	0.062600		&	-7\%		&	0.036712	&	0.036779	&	0\%	\\
+XGBM prep 	&	0.207129	&	0.186137	&	-10\%	&	0.072703	&	0.072571		&	0\%		&	0.035729	&	0.035505	&	-1\%	\\
+\hline
+\end{tabular}
+\caption{Values of the average discrepancy $\bar{d}_m$ calculated on $\log{\left(m_{x,t}\right)}$.}
+\label{tab:avecri_log}
+\end{table}\\
+%
+\begin{table}[ht]
+\centering
+\footnotesize
+\begin{tabular}{|l|l|r|r|r|r|r|r|r|r|r|}
+\hline
+\multirow{2}{*}{Error} & \multirow{2}{*}{Model} & \multicolumn{3}{c|}{Age 0-29} & \multicolumn{3}{c|}{Age 30-60} & \multicolumn{3}{c|}{Age 61-90} \\
+\cline{3-11}
+&			&	Base 	&	Boosted 	& \% Change &	Base 	&	Boosted 	& \% Change &	Base 	&	Boosted	& \% Change\\
+\hline
+\multirow{5}{*}{RMSE}  & APC 		&	0.197670	&	0.197502	&	0\%		&	0.062659	&	0.062708	&	0\%	&	0.049847	&	0.049678	&	0\%	\\
+& LC 		&	0.237064	&	0.232791	&	-2\%		&	0.101946	&	0.106096	&	4\%	&	0.060798	&	0.056322	&	-7\%	\\
+& GBM 		&	0.707561	&	0.694538	&	-2\%		&	0.182743	&	0.071172	&	-61\%	&	0.233815	&	0.081485	&	-65\%	\\
+& XGBM 		&	0.503457	&	0.496244	&	-1\%		&	0.089719	&	0.084808	&	-5\%	&	0.053659	&	0.053511	&	0\%	\\
+& XGBM prep 	&	0.306517	&	0.272596	&	-11\%	&	0.096897	&	0.097073	&	0\%	&	0.048344	&	0.048111	&	0\%	\\
+\hline
+\multirow{2}{*}{Error} & \multirow{2}{*}{Model} & \multicolumn{3}{c|}{Age 0-29} & \multicolumn{3}{c|}{Age 30-60} & \multicolumn{3}{c|}{Age 61-90} \\
+\cline{3-11}
+&			&	Base 	&	Boosted 	& \% Change &	Base 	&	Boosted 	& \% Change &	Base 	&	Boosted	& \% Change\\
+\hline
+\multirow{5}{*}{MAPE}  & APC 	&	2.1\%	&	2.2\%	&	0\%		&	0.8\%	&	0.8\%	&	0\%		&	1.4\%	&	1.2\%	&	1\%	\\
+& LC 		&	2.1\%	&	2.1\%	&	-2\%		&	1.2\%	&	1.3\%	&	5\%		&	1.6\%	&	1.6\%	&	1\%	\\
+& GBM 		&	3.5\%	&	3.1\%	&	-12\%	&	1.9\%	&	0.9\%	&	-52\%	&	4.7\%	&	5.6\%	&	2\%	\\
+& XGBM 		&	2.6\%	&	2.5\%	&	-1\%		&	1.2\%	&	1.1\%	&	-4\%		&	1.2\%	&	1.3\%	&	1\%	\\
+& XGBM prep 	&	2.8\%	&	2.7\%	&	-3\%		&	1.2\%	&	1.2\%	&	0\%		&	1.2\%	&	1.2\%	&	1\%	\\\hline
+\end{tabular}
+\caption{Values of the RMSE and MAPE calculated on $\log{\left(m_{x,t}\right)}$.}
+\label{tab:errors_log}
+\end{table}
+%
 Results of the CTs, comparing the estimates of the models with the real mortality rates, provide the discrepancy measure for each region detected by the CTs. %\hl{(Appendix)}. 
-These regions can easily be identified and, if possible, interpreted, providing a further explanation to the model performances. Moreover, high-discrepancy regions can be used for assessing whether or where a model should be trusted or not. \color{blue}We show the heatmap of the error regions in Fig. \ref{fig:CT} and Fig. \ref{fig:CT2} for the base model and the boosted one, respectively. \color{black} Low discrepancy regions are painted in green, while high discrepancy regions are painted in red. Purple is used, for the sake of image readability, for regions whose discrepancy value exceeds 6e-04 and 0.008 respectively.
+These regions can easily be identified and, if possible, interpreted, providing a further explanation to the model performances. Moreover, high-discrepancy regions can be used for assessing whether or where a model should be trusted or not. \color{blue}We show the heatmap of the error regions in Fig. \ref{fig:CT} and Fig. \ref{fig:CT2} for the base model and the boosted one, respectively. \color{black} Low discrepancy regions are painted in green, while high discrepancy regions are painted in red. 
+For the sake of image readability, we colored in purple the regions presenting a discrepancy value exceeding XXX, 6e-04, and 0.008 for the age groups 0-29, 30-60, and 61-90, respectively.
 
+\color{blue}For the age group 0-29, ADD COMMENTS \color{black} 
 For the age group 30-60, the APC model fails to predict mortality rates for advanced ages, as do the two XGBM models. On the contrary, GBM models fail for the most recent cohorts, while the high discrepancy regions relative to the LC model present a more complicated structure. 
 If one compares the results of CTs for base and boosted GBM, the effect of boosting is quite noticeable: while the model performance is still wanting for most recent cohorts, the discrepancy is clearly reduced. A similar effect, though not as evident, is present for LC models.
 
@@ -346,53 +374,52 @@ As for preprocessing, it seems from lack-of-fit curves and heatmaps that reduce 
 \begin{figure}[H]
 \centering
 \subfloat[APC (left: age 0-29; centre: age 30-60 right: age 61-90)]
-{\includegraphics[width=0.27\textwidth]{apc_0.jpeg}}
-{\includegraphics[width=0.27\textwidth]{apc.jpeg}}
-{\includegraphics[width=0.27\textwidth]{apc_61.jpeg}}
+{\includegraphics[width=0.32\textwidth]{apc_0.jpeg}
+\includegraphics[width=0.32\textwidth]{apc.jpeg}
+\includegraphics[width=0.32\textwidth]{apc_61.jpeg}}\\
 \subfloat[LC (left: age 0-29; centre: age 30-60 right: age 61-90)]
-{\includegraphics[width=0.27\textwidth]{lc_0.jpeg}}
-{\includegraphics[width=0.27\textwidth]{lc.jpeg}}
-{\includegraphics[width=0.27\textwidth]{lc_61.jpeg}}
+{\includegraphics[width=0.32\textwidth]{lc_0.jpeg}
+\includegraphics[width=0.32\textwidth]{lc.jpeg}
+\includegraphics[width=0.32\textwidth]{lc_61.jpeg}}\\
 \subfloat[GBM (left: age 0-29; centre: age 30-60 right: age 61-90)]
-{\includegraphics[width=0.27\textwidth]{gbm_0.jpeg}}
-{\includegraphics[width=0.27\textwidth]{gbm.jpeg}}
-{\includegraphics[width=0.27\textwidth]{gbm_61.jpeg}}
+{\includegraphics[width=0.32\textwidth]{gbm_0.jpeg}
+\includegraphics[width=0.32\textwidth]{gbm.jpeg}
+\includegraphics[width=0.32\textwidth]{gbm_61.jpeg}}\\
 \subfloat[XGBM (left: age 0-29; centre: age 30-60 right: age 61-90)]
-{\includegraphics[width=0.27\textwidth]{xgbm_0.jpeg}}
-{\includegraphics[width=0.27\textwidth]{xgbm.jpeg}}
-{\includegraphics[width=0.27\textwidth]{xgbm_61.jpeg}}
-
+{\includegraphics[width=0.32\textwidth]{xgbm_0.jpeg}
+\includegraphics[width=0.32\textwidth]{xgbm.jpeg}
+\includegraphics[width=0.32\textwidth]{xgbm_61.jpeg}}\\
 \subfloat[XGM prep (left: age 0-29; centre: age 30-60 right: age 61-90)]
-{\includegraphics[width=0.27\textwidth]{xgbm_preproc_0.jpeg}}
-{\includegraphics[width=0.27\textwidth]{xgbm_preproc.jpeg}}
-{\includegraphics[width=0.27\textwidth]{xgbm_preproc_61.jpeg}}
-\caption{CTs regions, Base model.}
+{\includegraphics[width=0.32\textwidth]{xgbm_preproc_0.jpeg}
+\includegraphics[width=0.32\textwidth]{xgbm_preproc.jpeg}
+\includegraphics[width=0.32\textwidth]{xgbm_preproc_61.jpeg}}
+\caption{CTs regions, Base model. Regions presenting a discrepancy value exceeding XXX (age 0-29), 6e-04 (age 30-60), and 0.008 (61-90) are colored in purple.}
 \label{fig:CT}
 \end{figure}
 %
 \begin{figure}[H]
 \centering
 \subfloat[APC (left: age 0-29; centre: age 30-60 right: age 61-90)]
-{\includegraphics[width=0.27\textwidth]{apc_0_b.jpeg}}
-{\includegraphics[width=0.27\textwidth]{apc_b.jpeg}}
-{\includegraphics[width=0.27\textwidth]{apc_61_b.jpeg}}
+{\includegraphics[width=0.32\textwidth]{apc_0_b.jpeg}
+\includegraphics[width=0.32\textwidth]{apc_b.jpeg}
+\includegraphics[width=0.32\textwidth]{apc_61_b.jpeg}}\\
 \subfloat[LC (left: age 0-29; centre: age 30-60 right: age 61-90)]
-{\includegraphics[width=0.27\textwidth]{lc_0_b.jpeg}}
-{\includegraphics[width=0.27\textwidth]{lc_b.jpeg}}
-{\includegraphics[width=0.27\textwidth]{lc_61_b.jpeg}}
+{\includegraphics[width=0.32\textwidth]{lc_0_b.jpeg}
+\includegraphics[width=0.32\textwidth]{lc_b.jpeg}
+\includegraphics[width=0.32\textwidth]{lc_61_b.jpeg}}\\
 \subfloat[GBM (left: age 0-29; centre: age 30-60 right: age 61-90)]
-{\includegraphics[width=0.27\textwidth]{gbm_0_b.jpeg}}
-{\includegraphics[width=0.27\textwidth]{gbm_b.jpeg}}
-{\includegraphics[width=0.27\textwidth]{gbm_61_b.jpeg}}
+{\includegraphics[width=0.32\textwidth]{gbm_0_b.jpeg}
+\includegraphics[width=0.32\textwidth]{gbm_b.jpeg}
+\includegraphics[width=0.32\textwidth]{gbm_61_b.jpeg}}\\
 \subfloat[XGBM (left: age 0-29; centre: age 30-60 right: age 61-90)]
-{\includegraphics[width=0.27\textwidth]{xgbm_0_b.jpeg}}
-{\includegraphics[width=0.27\textwidth]{xgbm_b.jpeg}}
-{\includegraphics[width=0.27\textwidth]{xgbm_61_b.jpeg}}
+{\includegraphics[width=0.32\textwidth]{xgbm_0_b.jpeg}
+\includegraphics[width=0.32\textwidth]{xgbm_b.jpeg}
+\includegraphics[width=0.32\textwidth]{xgbm_61_b.jpeg}}\\
 \subfloat[XGM prep (left: age 0-29; centre: age 30-60 right: age 61-90)]
-{\includegraphics[width=0.27\textwidth]{xgbm_preproc_0_b.jpeg}}
-{\includegraphics[width=0.27\textwidth]{xgbm_preproc_b.jpeg}}
-{\includegraphics[width=0.27\textwidth]{xgbm_preproc_61_b.jpeg}}
-\caption{CTs regions, Boosted model.}
+{\includegraphics[width=0.32\textwidth]{xgbm_preproc_0_b.jpeg}
+\includegraphics[width=0.32\textwidth]{xgbm_preproc_b.jpeg}
+\includegraphics[width=0.32\textwidth]{xgbm_preproc_61_b.jpeg}}
+\caption{CTs regions, Boosted model. Regions presenting a discrepancy value exceeding XXX (age 0-29), 6e-04 (age 30-60), and 0.008 (61-90) are colored in purple.}
 \label{fig:CT2}
 \end{figure}
 %\subsubsection*{Third-level section}
@@ -431,8 +458,8 @@ Chen, T., He, T., Benesty, M., Khotilovich, V., Tang, Y., Cho, H. (2015). Xgboos
 \bibitem[Cairns et al.(2006)]{CBD06} 
 Cairns, A.J.G., Blake, D., Dowd, K. (2006). A Two-Factor Model for Stochastic Mortality with Parameter Uncertainty: Theory and Calibration. Journal of Risk and Insurance, 73: 687-718.
 
-\bibitem[Cairns et al.(2006)]{CBD08} 
-Cairns, A.J.G., Blake, D., Dowd, K. (2008). Modelling and management of mortality risk: a review. Scandinavian Actuarial Journal, 73 (2-3): 79–113.
+\bibitem[Cairns et al.(2008)]{CBD08} 
+Cairns, A.J.G., Blake, D., Dowd, K. (2008). Modelling and management of mortality risk: a review. Scandinavian Actuarial Journal, 73 (2-3): 79-113.
 
 \bibitem[Cairns et al.(2009)]{CBD09} 
 Cairns, A.J.G., Blake, D., Dowd, K., Coughlan, G.D., Epstein, D., Ong, A., Balevich, I. (2009). A quantitative comparison of stochastic mortality models using data from England and Wales and the United States. North American Actuarial Journal, 13: 1-35.
@@ -442,6 +469,9 @@ Cairns, A.J.G., Blake, D., Dowd, K., Coughlan, G.D., Epstein, D., Khalaf-Allah, 
 
 \bibitem[Deprez et al.(2017)]{Deprez} 
 Deprez, P., Shevchenko, P.V., W\'uthrich, M.V (2017). Machine learning techniques for mortality modeling. European Actuarial Journal, 7: 337-352. https://doi.org/10.1007/s13385-017-0152-4.
+
+\bibitem[Djeundje et al.(2022)]{Djeundje2022} 
+Djeundje, V.B., Haberman, S., Bajekal, M. et al. (2022). The slowdown in mortality improvement rates 2011-2017: a multi-country analysis. European Actuarial Journal. DOI: 10.1007/s13385-022-00318-0
 
 \bibitem[Friedman(2001)]{Friedman} 
 Friedman, J.H. (2001). Greedy function approximation: A Gradient Boosting Machine. Annals of Statistics 29: 1189-1232.
