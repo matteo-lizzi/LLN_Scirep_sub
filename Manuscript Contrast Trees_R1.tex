@@ -81,6 +81,7 @@ This paper contributes to the literature on mortality modeling by introducing an
 We provide an application of the method proposed by \cite{Friedman2020}, namely Contrast Trees, which helps evaluate the accuracy of the mortality estimates (fitted mortality rates) given by models that are not treatable with model selection criteria based on the likelihood function. Therefore, this technique provides a unified framework for assessing and comparing the goodness-of-fit to historical data of traditional mortality models with machine learning algorithms.
 \color{black}
 Moreover, in addition to evaluating the accuracy of the models, the Contrast Trees enables improving the performance of the models through a boosting procedure that reduces the inaccuracies. We use this methodology, namely Contrast Boosting, to improve \color{blue}the fitting of historical mortality data.
+According to the demographic literature, the reliable estimation of mortality data may refer not only to the extrapolation but also to an accurate fitting of the historical mortality surface. For instance, in longevity analysis is common to deal with subpopulations i.e. regions or provinces, characterized by a high level of stochasticity often due to a small number of count data at single ages. This is the case in which specific ages or years are not covered with data information, making the mortality estimation challenging. Our approach is crucial to evaluate the mortality matrix estimation provided by a mortality model and to ensure estimation effectiveness by comparing different methods.
 To summarize, through this new technique based on Contrast Trees, we aim to find the best model that fits observed mortality rates by grasping and detecting the inaccuracies of any model and boosting its predictive power. \color{black}
 
 The remainder of this paper is organized as follows: Section 2 introduces the model framework, both Contrast Trees and Contrast Boosting. 
@@ -353,13 +354,13 @@ XGBM prep 	&	0.207129	&	0.186137	&	-10\%	&	0.072703	&	0.072571		&	0\%		&	0.03572
 \end{tabular}
 \caption{Values of the RMSE and MAPE calculated on $\log{\left(m_{x,t}\right)}$ in the test set.}
 \label{tab:errors_log}
-\end{table}
+\end{table}\\
 %
-Results of the CTs, comparing the estimates of the models with the real mortality rates, provide the discrepancy measure for each region detected by the CTs. 
+\color{red} RIVEDEREThe CTs application, which compare the estimates of the models with the real mortality rates, provides the discrepancy measure for each region detected. 
 These regions can easily be identified and, if possible, interpreted, providing a further explanation to the model performances. Moreover, high-discrepancy regions can be used for assessing whether or where a model should be trusted or not. \color{blue}We show the heatmap of the error regions in Fig. \ref{fig:CT} and Fig. \ref{fig:CT2} for the base model and the boosted one, respectively. \color{black} Low discrepancy regions are painted in green, while high discrepancy regions are painted in red. 
-For the sake of image readability, we colored in purple the regions presenting a discrepancy value exceeding XXX, 6e-04, and 0.008 for the age groups 0-29, 30-60, and 61-90, respectively.
+For the sake of image readability, we colored in purple the regions presenting a discrepancy value exceeding 3e-04, 6e-04, and 0.008 for the age groups 0-29, 30-60, and 61-90, respectively.
 
-\color{blue}For the age group 0-29, .... \color{black} 
+\color{red}For the age group 0-29, .... \color{black} 
 For the age group 30-60, the APC model fails to predict mortality rates for advanced ages, as do the two XGBM models. On the contrary, GBM models fail for the most recent cohorts, while the high discrepancy regions relative to the LC model present a more complicated structure. 
 If one compares the results of CTs for base and boosted GBM, the effect of boosting is quite noticeable: while the model performance is still wanting for most recent cohorts, the discrepancy is clearly reduced. A similar effect, though not as evident, is present for LC models.
 
@@ -389,7 +390,7 @@ As for preprocessing, it seems from lack-of-fit curves and heatmaps that reduce 
 {\includegraphics[width=0.32\textwidth]{xgbm_preproc_0.jpeg}
 \includegraphics[width=0.32\textwidth]{xgbm_preproc.jpeg}
 \includegraphics[width=0.32\textwidth]{xgbm_preproc_61.jpeg}}
-\caption{CTs regions, Base model. Regions presenting a discrepancy value exceeding XXX (age 0-29), 6e-04 (age 30-60), and 0.008 (61-90) are colored in purple.}
+\caption{CTs regions, Base model. Regions presenting a discrepancy value exceeding 3e-04 (age 0-29), 6e-04 (age 30-60), and 0.008 (61-90) are colored in purple.}
 \label{fig:CT}
 \end{figure}
 %
@@ -415,7 +416,7 @@ As for preprocessing, it seems from lack-of-fit curves and heatmaps that reduce 
 {\includegraphics[width=0.32\textwidth]{xgbm_preproc_0_b.jpeg}
 \includegraphics[width=0.32\textwidth]{xgbm_preproc_b.jpeg}
 \includegraphics[width=0.32\textwidth]{xgbm_preproc_61_b.jpeg}}
-\caption{CTs regions, Boosted model. Regions presenting a discrepancy value exceeding XXX (age 0-29), 6e-04 (age 30-60), and 0.008 (61-90) are colored in purple.}
+\caption{CTs regions, Boosted model. Regions presenting a discrepancy value exceeding 3e-04 (age 0-29), 6e-04 (age 30-60), and 0.008 (61-90) are colored in purple.}
 \label{fig:CT2}
 \end{figure}
 %\subsubsection*{Third-level section}
@@ -425,6 +426,9 @@ As for preprocessing, it seems from lack-of-fit curves and heatmaps that reduce 
 \section*{Discussion}
 %-------------------------------------------------------------
 %\textit{The Discussion should be succinct and must not contain subheadings.}\\
+\textcolor{blue}{Evaluating, and thus eventually improving, the fit of mortality models is crucial for both demographers and actuaries. 
+Indeed, in particular situations, common in actuarial practice, data quality can turn the mortality estimate difficult. 
+A prime example is the case of small subpopulations where a common method such as the Lee-Carter may not guarantee reliable estimation. In this sense, our proposal fills the gap between mortality modeling and model diagnostics, particularly for nontraditional modeling as a machine learning framework.}
 
 CTs consist of a general method based on machine learning that can be applied to any model, expressed as a regression model, to evaluate the goodness of fit and identify the worst-performing regions in the input space. While, other well-known goodness of fit evaluation criteria, such as Bayesian Information Criterion, Akaike Information Criterion, Schwartz Information Criterion, require the likelihood function, which is not available for machine learning models. Therefore, it provides a unified approach for assessing and comparing the accuracy of both traditional models and machine learning algorithms.
 
