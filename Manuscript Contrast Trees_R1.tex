@@ -18,6 +18,8 @@
 \usepackage{graphicx} % pacchetto base per inserire i grafici  
 \usepackage{subfig} % gestione di figure allineate
 \usepackage{booktabs} % per l'ottimizzazione delle tabelle
+\usepackage{lineno}
+\linenumbers
 
 \title{Enhancing diagnostic of stochastic mortality models leveraging contrast trees. An application on Italian data}
 
@@ -37,8 +39,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 The rise in longevity in the twentieth century has led to a growing interest in modeling mortality, and new advanced techniques such as machine learning have recently joined to more traditional models, such as the Lee-Carter or the Age Period Cohort. 
 However, the performances of these models, in terms of fitting to the observed data, are difficult to compare in a unified framework.
-The goodness-of-fit measures summarizing the discrepancy between the estimates from the model and the observed values are different for traditional mortality models and machine learning. We, therefore, employ a new technique, Contrast Trees, which, leveraging on decision trees, provides a general approach for evaluating the quality of fit of different kinds of models by detecting the regions in the input space where models work poorly. 
-Once the low-performance regions are detected, we use Contrast Boosting to improve the inaccuracies of mortality estimates provided by each model. 
+The goodness-of-fit measures summarizing the discrepancy between the estimates from the model and the observed values are different for traditional mortality models and machine learning. We, therefore, employ a new technique, Contrast trees, which, leveraging on decision trees, provides a general approach for evaluating the quality of fit of different kinds of models by detecting the regions in the input space where models work poorly. 
+Once the low-performance regions are detected, we use Contrast boosting to improve the inaccuracies of mortality estimates provided by each model. 
 To verify the ability of this approach, we consider both standard stochastic mortality models and machine learning algorithms in the estimate of the Italian mortality rates from the Human Mortality Database. 
 The results are discussed using both graphical and numerical tools, with particular attention to the high-error regions. 
 \end{abstract}
@@ -64,7 +66,7 @@ The results are discussed using both graphical and numerical tools, with particu
 
 %The life expectancy rise that has occurred in the last decades constitutes a great conquest but contemporarily creates substantial challenges for life insurers and social security schemes providing benefits related to illness, or survival of people. Important policy decisions are based on the human longevity reliable estimates, and public pension policies are a prime example. Thereby, understanding longevity dynamics over age and time is crucial, as they are one of the driving forces of population change. 
 Since 1980, innovative approaches and developments in mortality modeling have been constantly proposed. 
-Mortality analysis has received a considerable contribution from statistical science, building solid foundations for the evolution of mortality methods. Estimating longevity is not straightforward; accuracy depends on the particular situation or trends, and it is not easy to comprehend when a method will good perform. Indeed, new mortality \color{red}forecasting \color{black} techniques will appear in the literature but may take years before they can be fully evaluated. As stated by \cite{Booth}, the accuracy of mortality estimates should be regularly tested to set the improvement evidence. Researchers appear to be more focused on technical progress of a method rather than on the accuracy of the estimation provided, focusing on minimizing the bias.
+Mortality analysis has received a considerable contribution from statistical science, building solid foundations for the evolution of mortality methods. Estimating longevity is not straightforward; accuracy depends on the particular situation or trends, and it is not easy to comprehend when a method will good perform. Indeed, new mortality models will appear in the literature but may take years before they can be fully evaluated. As stated by \cite{Booth}, the accuracy of mortality estimates should be regularly tested to set the improvement evidence. Researchers appear to be more focused on technical progress of a method rather than on the accuracy of the estimation provided, focusing on minimizing the bias.
 
 Several approaches have been used to model the mortality surface, determining how death rates change over time. Until the 1980s, mortality models were relatively simple and involved a fair degree of subjective judgment (see \cite{Pollard} for a detailed review on this aspect). The growing availability of reliable data, in lockstep with the improvement of statistical-mathematical methods, has allowed the creation of ever-finer mortality models. According to \cite{Booth}, literature would suggest three approaches to demographic modeling. 
 The first one (explanation) makes use of structural or epidemiological models from certain causes of death. A classic example is the dependence of lung cancer on tobacco smoking. The second one (expectation) is based on subjective expert opinion, involving varying degrees of formality. Finally, the third and most commonly used approach is extrapolative, using the regularity typically found in age patterns and trends over time.
@@ -74,18 +76,17 @@ Despite models like the Lee-Carter and its variants having been widely used, bec
 
 The significant reduction in the forecasting error reached by the application of machine learning techniques became particularly useful for both researchers and practitioners. The main contributions are from \cite{Deprez}, \cite{LevPiz} and \cite{LevNi}. The common idea behind all these works is to improve the fitting accuracy of canonical models using machine learning algorithms. In other words, to correct the mortality surface produced by standard stochastic mortality models. All of the proposed methods calibrate a machine learning estimator used to adjust (and improve) mortality rates estimated by the original mortality model. Those authors show that mortality modeling can benefit from machine learning as it better captures patterns that traditional models do not identify. 
 
-\color{red}The need for new models that can understand mortality evolution more accurately than canonical tools is evident. COMMENTO: IL CONTRAST TREE COME PUO' ESSERE UTILE A SVILUPPARE UN MODELLO MIGLIORE? A deeper mortality assessment? \color{black}
-
+The need for new tools for comparing models' performances is evident to understand mortality evolution more accurately. 
 This paper contributes to the literature on mortality modeling by introducing an innovative approach based on machine learning techniques that demographers have not yet explored, contributing to the undervalued field of model assessment. 
 \color{blue}
-We provide an application of the method proposed by \cite{Friedman2020}, namely Contrast Trees, which helps evaluate the accuracy of the mortality estimates (fitted mortality rates) given by models that are not treatable with model selection criteria based on the likelihood function. Therefore, this technique provides a unified framework for assessing and comparing the goodness-of-fit to historical data of traditional mortality models with machine learning algorithms.
-\color{black}
-Moreover, in addition to evaluating the accuracy of the models, the Contrast Trees enables improving the performance of the models through a boosting procedure that reduces the inaccuracies. We use this methodology, namely Contrast Boosting, to improve \color{blue}the fitting of historical mortality data.
+This approach, namely Contrast trees, recently proposed by \cite{Friedman2020}, and here applied to mortality data, helps evaluate the accuracy of the mortality estimates (fitted mortality rates) given by models that are not treatable with model selection criteria based on the likelihood function. Therefore, this technique provides a unified framework for assessing and comparing the goodness-of-fit to historical data of traditional mortality models with machine learning algorithms.
+Our paper highlights the ability of Contrast trees to identify the regions in the predictor variables space that show very high values of the error rate quantified by a discrepancy measure. The regions’ width and shape change from model to model. \color{black}
+Moreover, in addition to evaluating the accuracy of the models, the Contrast trees enables improving the performance of the models through a boosting procedure that reduces the inaccuracies. We use this methodology, namely Contrast boosting, to improve \color{blue}the fitting of historical mortality data.
 According to the demographic literature, the reliable estimation of mortality data may refer not only to the extrapolation but also to an accurate fitting of the historical mortality surface. For instance, in longevity analysis is common to deal with subpopulations i.e. regions or provinces, characterized by a high level of stochasticity often due to a small number of count data at single ages. This is the case in which specific ages or years are not covered with data information, making the mortality estimation challenging. Our approach is crucial to evaluate the mortality matrix estimation provided by a mortality model and to ensure estimation effectiveness by comparing different methods.
-To summarize, through this new technique based on Contrast Trees, we aim to find the best model that fits observed mortality rates by grasping and detecting the inaccuracies of any model and boosting its predictive power. \color{black}
+To summarize, through this new technique based on Contrast trees, we aim to find the best model that fits observed mortality rates by grasping and detecting the inaccuracies of any model and boosting its predictive power. \color{black}
 
-The remainder of this paper is organized as follows: Section 2 introduces the model framework, both Contrast Trees and Contrast Boosting. 
-In Section 3, we describe the numerical implementation, also providing an overview of the mortality models, expressed in a regression framework, which we assess by the Contrast Trees approach. We devote a specific sub-section to explanation and discussion of the numerical results. 
+The remainder of this paper is organized as follows: Section 2 introduces the model framework, both Contrast trees and Contrast boosting. 
+In Section 3, we describe the numerical implementation, also providing an overview of the mortality models, expressed in a regression framework, which we assess by the Contrast trees approach. We devote a specific sub-section to explanation and discussion of the numerical results. 
 Section 4 concludes the paper, providing other possible practical implementations of the method in mortality assessment and the limitations of our research.
 
 %-------------------------------------------------------------
@@ -110,8 +111,8 @@ m_{x,t}=\frac{D_{x,t}}{E_{x,t}}
 Where $D_{x,t}$ is the number of deaths aged $x$ in year $t$, and $E_{x,t}$ are the exposures-to-risk aged $x$ in year $t$.
 
 \subsection*{Mortality models}
-\color{blue}In the following, we briefly describe the four models to which the Contrast Trees methodology is applied. The scope is to evaluate the models' quality of fit. \color{black}
-The first two models belong to the family of generalized age-period-cohort (GAPC) that are expressed in a regression framework to be suitable for applying Contrast Trees, which requires data organized in columns. The last two are well-known machine learning techniques also used for regression tasks.\\
+\color{blue}In the following, we briefly describe the four models to which the Contrast trees methodology is applied. The scope is to evaluate the models' quality of fit. \color{black}
+The first two models belong to the family of generalized age-period-cohort (GAPC) that are expressed in a regression framework to be suitable for applying Contrast trees, which requires data organized in columns. The last two are well-known machine learning techniques also used for regression tasks.\\
 
 \subsubsection*{Lee-Carter (LC) model}
 The original LC model\cite{LC92} assumes that:
@@ -153,13 +154,13 @@ In the following, we briefly mention some traditional diagnostic tools that are 
 \end{itemize}
 \color{black}
 
-\subsection*{Contrast Trees}
-\color{blue}Contrast Trees (CTs) is an innovative approach that, leveraging tree-based machine learning techniques, allows for deeply assessing the goodness-of-fit of a model by identifying where the model performs worse. \color{black}
-Specifically, the goal of the CTs method is to uncover regions in the predictor variables space presenting very high values of the error rate quantified by a discrepancy measure \cite{Friedman2020}. \color{blue}In the context of mortality modeling, the main feature that distinguishes this method from the traditional diagnostic methods mentioned above is the ability to automatically identify the regions in which a given model provides a high error for certain combinations of ages and calendar years.
-Furthermore, CTs have the advantage of being easy to interpret and can be used as a diagnostic tool to detect the inaccuracies of every kind of model, for example, both those whose parameters estimate is based on a likelihood function and those based on machine learning algorithms. Our analysis shows how CTs can be used for assessing the goodness-of-fit of different mortality models to observed data. 
+\subsection*{Contrast trees}
+\color{blue}Contrast trees is an innovative approach that, leveraging tree-based machine learning techniques, allows for deeply assessing the goodness-of-fit of a model by identifying where the model performs worse. \color{black}
+Specifically, the goal of the Contrast trees method is to uncover regions in the predictor variables space presenting very high values of the error rate quantified by a discrepancy measure \cite{Friedman2020}. \color{blue}In the context of mortality modeling, the main feature that distinguishes this method from the traditional diagnostic methods mentioned above is the ability to automatically identify the regions in which a given model provides a high error for certain combinations of ages and calendar years.
+Furthermore, Contrast trees have the advantage of being easy to interpret and can be used as a diagnostic tool to detect the inaccuracies of every kind of model, for example, both those whose parameters estimate is based on a likelihood function and those based on machine learning algorithms. Our analysis shows how Contrast trees can be used for assessing the goodness-of-fit of different mortality models to observed data. 
 \color{black}
 
-Suppose to have a set of predictor variables $x = (x_1, x_2,...,x_p)$ and two outcome variables $y$ and $z$ for each $x$. We aim to find those values of $x$ for which the respective distributions of $y | x$ and $z | x$, or some statistics such as mean or quantiles, are most different. In summary, CTs provide a lack-of-fit measure for the conditional distribution $p_y(y | x)$, or some statistics.\\
+Suppose to have a set of predictor variables $x = (x_1, x_2,...,x_p)$ and two outcome variables $y$ and $z$ for each $x$. We aim to find those values of $x$ for which the respective distributions of $y | x$ and $z | x$, or some statistics such as mean or quantiles, are most different. In summary, Contrast trees provide a lack-of-fit measure for the conditional distribution $p_y(y | x)$, or some statistics.\\
 Consider the $M^{th}$ iteration, where the tree splits the space of the predictor variables into $M$ disjoint regions $\lbrace R_m\rbrace^M_{m=1}$, each one containing a subset of the data. We denote $f_m^{(l)}$ and $f_m^{(r)}$ the fraction of observations in the left and right region with respect to $R_m$, respectively. While, the quantities $d_m^{(l)}$, $d_m^{(r)}$ respectively represent the discrepancy measures associated to the fractions $f_m^{(l)}$ and $f_m^{(r)}$. Given a specified subset of the data $\lbrace x_i,y_i,z_i \rbrace_{x_i\in R_m}$, a discrepancy measure between $y$ and $z$ values can be generally defined as:
 \begin{equation}
 \label{eq:dm}
@@ -171,8 +172,7 @@ Q_m(l,r)=\left(f_m^{(l)} \cdot f_m^{(r)}\right) \cdot max\left(d_m^{(l)}, d_m^{(
 \end{equation}
 The factor $\left(f_m^{(l)} \cdot f_m^{(r)}\right)$ discourages highly asymmetric splits in anticipation of further splitting, while the other factor $max\left(d_m^{(l)}, d_m^{(r)} \right)^{\beta}$ attempts to isolate the $R_m^{(l)}$ and $R_m^{(m)}$ regions with high discrepancy. The parameter $\beta$ regulates the relative influence of the two factors but, as stated by \cite{Friedman2020}, results are insensitive to its value. We will use $\beta=2$ in our analysis.
 
-The choice of the discrepancy measure depends on the problem to be solved, allowing CTs to be applied to a variety of problems \cite{Friedman2020}. They are similar to loss criteria in prediction problems. 
-The discrepancy measures that could be appropriate to represent the problem under investigation are the following:
+The choice of the discrepancy measure depends on the problem to be solved, allowing Contrast trees to be applied to a variety of problems \cite{Friedman2020}. They are similar to loss criteria in prediction problems. The discrepancy measures that could be appropriate to represent the problem under investigation are the following:
 \begin{equation}
 \label{eq:dm1}
 d_m^{[1]} = \frac{1}{N_m} \sum_{x_i \in R_m} \lvert y_i-z_i \rvert
@@ -187,7 +187,7 @@ In numerical applications, for sake of simplicity, we use the discrepancy measur
 
 \subsubsection*{Lack-of-fit contrast curves}
 
-The results obtained by applying the CTs to different models can be summarized in the lack-of-fit contrast curves, which have point coordinates 
+The results obtained by applying the Contrast trees to different models can be summarized in the lack-of-fit contrast curves, which have point coordinates 
 $$[f_m,\bar{d}_m]$$
 where $f_m=\frac{1}{N}\sum_{d_j\geq d_m}N_j$ is the fraction of observations in the region $R_m$ containing $N_m$ observations, and $\bar{d}_m=\frac{\sum_{d_j\geq d_m}d_j N_j}{\sum_{d_j\geq d_m}N_j}$ is the average discrepancy.
 
@@ -200,11 +200,10 @@ Looking at the ordinate-axis, the leftmost point on each curve represents the $\
 \label{fig:lof-ex}
 \end{figure}
 
-\subsection*{Contrast Boosting}
+\subsection*{Contrast boosting}
 
-To improve the models accuracy, \cite{Friedman2020} proposes a contrast-boosting strategy that, dealing with the uncovered errors, can enable the regression models to provide more accurate predictions. 
-Contrast Boosting works by gradually modifying a starting value of $z$ to reducing its discrepancy with $y$ over the data. The resulting prediction is then affected by these modifications on the initial value of $z$.
-We consider the estimation Contrast Boosting, which takes $z$ as an estimate of a parameter of the full conditional distribution of a target variable given a set of predictor variables, $p_y(y | x)$.
+To improve the models accuracy, \cite{Friedman2020} proposes a contrast-boosting strategy that, dealing with the uncovered errors, can enable the regression models to provide more accurate predictions. Contrast boosting works by gradually modifying a starting value of $z$ to reducing its discrepancy with $y$ over the data. The resulting prediction is then affected by these modifications on the initial value of $z$.
+We consider the estimation Contrast boosting, which takes $z$ as an estimate of a parameter of the full conditional distribution of a target variable given a set of predictor variables, $p_y(y | x)$.
 The procedure consists of modifying the $z$ values within a certain region $R_m^{(1)}$ of a CT, so that its discrepancy with $y$ is zero, i.e. to set $d_m=0$ in Eq. \ref{eq:dm}.
 This is an iterative procedure, where the first modification is from $z$ to $z^{(1)}=z+\delta^{(1)}_m$ for $x\in R^{(1)}_m$, the second from $z^{(1)}$ to $z^{(2)}=z+\delta^{(2)}_m$ for $x\in R^{(2)}_m$, and so on.
 The $z$ values final estimate is then $\tilde{z}(x)=z(x)+\sum_{k=1}^{K}\delta_{m}^{(k)}$, where $K$ are the maximum number of iterations. In practice, each updated value of $z$ is contrasted with $y$ producing new regions $R^{(k)}_m$ ($1\leq k\leq K$) with corresponding updates $\delta_{m}^{(k)}$.
@@ -218,11 +217,11 @@ We implement the analyses using the \textit{conTree} R package developed by \cit
 We set to 100 the maximum tree size corresponding to the number of regions. It is worth noting that the choice of this parameter is not straightforward because it involves a trade-off between discrepancy and interpretability. The smaller the trees, the larger the regions (defined by simple rules and easy to be interpreted). The larger the trees, the higher the potential to uncover small high discrepancy regions (defined by complex rules).
 %Pruning strategies analogous to those in classification and regression trees based on cross-validation can also be employed to guide choice of tree size.
 
-\color{blue} The models' performance results on the test set are summarized in the lack-of-fit contrast curves, deduced by contrasting the observed mortality data to the estimates provided by each model. These curves are shown in Fig. \ref{fig:lof} for the three different ages groups analyzed. The panels (a)-(c) of these figures refer to the lack-of-fit curves obtained without applying the Contrast Boosting (Base models), while panels (d)-(f) refer to the lack-of-fit curves obtained after applying Contrast Boosting to the output of the models (Boosted models).
-For the 0-29 age group (Fig. \ref{fig:lof}, panel (a) and (d)), both APC and XGBM model have the lowest discrepancy values for each fraction of observations, providing the best fitting. The average discrepancy for this age group is higher than for the 30-60 age group. The 0-29 age group is known to be characterized by high accidental mortality, the so-called “accident hump” around age 20-25, due to accidental deaths or suicides caused by increased risk-taking behavior. Mortality at age 0-29 is therefore hard to predict, and Contrast Boosting is not able to actually reduce the average discrepancy. \color{black}
-For the 30-60 age group (Fig. \ref{fig:lof}, panel (b) and (e)), the APC model seems to best perform across all regions since the discrepancy values are consistently lower than those of the other models. For the XGBM models, we can observe that the model applied to preprocessed data (XGBM prep) performs better in the regions with the highest average discrepancy with respect to the model applied to raw data. From the scale of the plots, we can see that Contrast Boosting reduces discrepancy across almost all regions for the GBM and LC models, where the relative effect of boosting is particularly evident. 
+\color{blue} The models' performance results on the test set are summarized in the lack-of-fit contrast curves, deduced by contrasting the observed mortality data to the estimates provided by each model. These curves are shown in Fig. \ref{fig:lof} for the three different ages groups analyzed. The panels (a)-(c) of these figures refer to the lack-of-fit curves obtained without applying the Contrast boosting (Base models), while panels (d)-(f) refer to the lack-of-fit curves obtained after applying Contrast boosting to the output of the models (Boosted models).
+For the 0-29 age group (Fig. \ref{fig:lof}, panel (a) and (d)), both APC and XGBM model have the lowest discrepancy values for each fraction of observations, providing the best fitting. The average discrepancy for this age group is higher than for the 30-60 age group. The 0-29 age group is known to be characterized by high accidental mortality, the so-called “accident hump” around age 20-25, due to accidental deaths or suicides caused by increased risk-taking behavior. Mortality at age 0-29 is therefore hard to predict, and Contrast boosting is not able to actually reduce the average discrepancy. \color{black}
+For the 30-60 age group (Fig. \ref{fig:lof}, panel (b) and (e)), the APC model seems to best perform across all regions since the discrepancy values are consistently lower than those of the other models. For the XGBM models, we can observe that the model applied to preprocessed data (XGBM prep) performs better in the regions with the highest average discrepancy with respect to the model applied to raw data. From the scale of the plots, we can see that Contrast boosting reduces discrepancy across almost all regions for the GBM and LC models, where the relative effect of boosting is particularly evident. 
 For the 61-90 age group (Fig. \ref{fig:lof}, panel (c) and (f)), the GBM model seems by far the worst performing model. 
-Albeit the application of Contrast Boosting significantly reduces the discrepancy, the GBM continues to be less accurate than the other models. It should also be noted that the effect of Contrast Boosting in high-discrepancy regions for the other models is negligible, except for the APC.
+Albeit the application of Contrast boosting significantly reduces the discrepancy, the GBM continues to be less accurate than the other models. It should also be noted that the effect of Contrast boosting in high-discrepancy regions for the other models is negligible, except for the APC.
 \begin{figure}[ht]
 \centering
 \subfloat[Base model - Age 0-29]
@@ -237,16 +236,15 @@ Albeit the application of Contrast Boosting significantly reduces the discrepanc
 {\includegraphics[width=0.31\textwidth]{lof_b}}\quad
 \subfloat[Boosted model - Age 61-90]
 {\includegraphics[width=0.31\textwidth]{lof_61_b}}
-\caption{Lack-of-fit contrast curves for APC (red), LC (green), GBM (dark green), XGBM (blue) and XGBM prep (purple).}
+\caption{Lack-of-fit contrast curves for APC, LC, GBM, XGBM and XGBM prep.}
 \label{fig:lof}
 \end{figure}\\
 %
 Table \ref{tab:avecri} reports the values of the average discrepancy measure for both the base and the boosted models considered in the analysis. 
-The APC and the XGBM base models provide the lowest average discrepancy values (0.000410 and 0.000417, respectively), which remain substantially unchanged after the Contrast Boosting procedure.
+The APC and the XGBM base models provide the lowest average discrepancy values (0.000410 and 0.000417, respectively), which remain substantially unchanged after the Contrast boosting procedure.
 The APC model shows the lowest value of $\bar{d}_m$ also for the age group 30-60, in line with the dynamics of the lack-of-fit curves depicted in panels (b) and (e) of Fig. \ref{fig:lof}.
-However, the lack-of-fit curves provide more structured information than the average discrepancy, in particular, regarding how and how much $\bar{d}_m$ varies across the input space. \color{red}RIVEDERE This is clearer when comparing XGBM and APC models for the age group 61-90 in the base model: whereas the average discrepancy of these models differs for 2.6\% (0.002010 compared to 0.001960), looking at the lack-of-fit curve depicted in Fig. \ref{fig:lof} the XGBM model (orange curve) results to perform better than the APC model in the high discrepancy regions. \color{black}
-%Therefore, in the worst case, where the average discrepancy is high, it is less likely that \hl{XXX} produces estimates for $m_{x,t}$ far from the observed values.
-Looking at ages 61-90, the GBM base model shows the worst fitting to the observed mortality data. Although Contrast Boosting produces a strong improvement in the discrepancy measure, the GBM remains the worst model in terms of discrepancy. \color{blue}Contrast Boosting is very effective also for the GBM model in the age group 30-60, as it heavily lowers (-30\%) the average discrepancy between observed and estimated values.\color{black}
+However, the lack-of-fit curves provide more structured information than the average discrepancy, in particular, regarding how and how much $\bar{d}_m$ varies across the input space. For example, for the age group 61-90 in the base model (panel (c)), we can appreciate that the main difference among models (except for GBM, which is out of range) measured by the average discrepancy is caused by the high discrepancy regions (where the fraction of observation is less than about 0.20). 
+For ages 61-90, the GBM base model shows the worst fitting to the observed mortality data. Although Contrast boosting produces a strong improvement in the discrepancy measure, GBM remains the worst model in terms of discrepancy. Contrast boosting is very effective also for the GBM model in the age group 30-60, as it heavily lowers (-30\%) the average discrepancy between observed and estimated values.
 %
 \begin{table}[ht]
 \centering
@@ -268,7 +266,7 @@ XGBM prep 	&	0.000500	&	0.000493	&	-1\%	&	0.000268	&	0.000265	&	-1\%	&	0.002003	
 \label{tab:avecri}
 \end{table}\\
 For a comparison with the average discrepancy, we also calculate the Root Mean Square Error (RMSE) and Mean Absolute Percentage Error (MAPE) on the base model and the boosted one. Intuitively, the three measures $\bar{d}_m$, RMSE, and MAPE quantify the "distance" between the estimates and the actual observations. 
-However, the average discrepancy is an innovative measure summarizing the discrepancy over all the regions identified by the CTs, while RMSE and MAPE are commonly used error measures calculated on the overall input space without distinguishing by region. 
+However, the average discrepancy is an innovative measure summarizing the discrepancy over all the regions identified by the Contrast trees, while RMSE and MAPE are commonly used error measures calculated on the overall input space without distinguishing by region. 
 
 By comparing Table \ref{tab:errors} showing the values of RMSE and MAPE with Table \ref{tab:avecri} reporting the values of the average discrepancy, we note a greater convergence of the error measures in the boosted models rather than in the base models. This result is intuitively straightforward since the boosted models are obtained by just reducing the discrepancy measure. 
 %
@@ -300,12 +298,13 @@ By comparing Table \ref{tab:errors} showing the values of RMSE and MAPE with Tab
 \end{tabular}
 \caption{Values of the RMSE and MAPE calculated on $m_{x,t}$ in the test set.}
 \label{tab:errors}
-\end{table}
+\end{table}\\
 %
 \color{blue}
-We also calculate average discrepancy, RMSE, and MAPE on the logarithm of the central death rates (Table \ref{tab:avecri_log}, \ref{tab:errors_log}. 
+We also calculate average discrepancy, RMSE, and MAPE on the logarithm of the central death rates (Tables \ref{tab:avecri_log}-\ref{tab:errors_log}). 
 These measures assign a relatively large weight to errors at young ages, while error measures calculated on the central death rates assign a large weight to errors at older ages.
-\color{black} 
+Indeed, for the age group 0-29, all the errors reported in Tables \ref{tab:avecri_log}-\ref{tab:errors_log} are significantly higher than those in Tables \ref{tab:avecri}-\ref{tab:errors}. 
+The errors calculated on the logarithm of the central death rates highlight the ability of Contrast boosting to reduce the inaccuracy of GBM and XGBM-prep in fitting observed mortality at ages 0-29.\color{black} 
 %
 \begin{table}[ht]
 \centering
@@ -356,18 +355,15 @@ XGBM prep 	&	0.207129	&	0.186137	&	-10\%	&	0.072703	&	0.072571		&	0\%		&	0.03572
 \label{tab:errors_log}
 \end{table}\\
 %
-\color{red} RIVEDEREThe CTs application, which compare the estimates of the models with the real mortality rates, provides the discrepancy measure for each region detected. 
-These regions can easily be identified and, if possible, interpreted, providing a further explanation to the model performances. Moreover, high-discrepancy regions can be used for assessing whether or where a model should be trusted or not. \color{blue}We show the heatmap of the error regions in Fig. \ref{fig:CT} and Fig. \ref{fig:CT2} for the base model and the boosted one, respectively. \color{black} Low discrepancy regions are painted in green, while high discrepancy regions are painted in red. 
-For the sake of image readability, we colored in purple the regions presenting a discrepancy value exceeding 3e-04, 6e-04, and 0.008 for the age groups 0-29, 30-60, and 61-90, respectively.
+\color{blue} 
+The most interesting feature of the application of Contrast trees to the field of mortality estimate is the automatic identification of the regions of the predictors' space where a given model provides high discrepancy values for certain combinations of ages-years obtained by comparing the model estimates with the observed mortality rates.
+These regions can be easily detected and possibly interpreted, providing a further explanation of the model performances as well as helping to assess whether a model can be reliable or not. Fig. \ref{fig:CT} and Fig. \ref{fig:CT2} show the heatmap of all the error regions for the base model and the boosted one, respectively. \color{black} Low discrepancy regions are painted in green, while high discrepancy regions are painted in red. 
+For the sake of plot readability, we colored in purple the regions presenting a discrepancy value exceeding 3e-04, 6e-04, and 0.008 for the age groups 0-29, 30-60, and 61-90, respectively.
 
-\color{red}For the age group 0-29, .... \color{black} 
-For the age group 30-60, the APC model fails to predict mortality rates for advanced ages, as do the two XGBM models. On the contrary, GBM models fail for the most recent cohorts, while the high discrepancy regions relative to the LC model present a more complicated structure. 
-If one compares the results of CTs for base and boosted GBM, the effect of boosting is quite noticeable: while the model performance is still wanting for most recent cohorts, the discrepancy is clearly reduced. A similar effect, though not as evident, is present for LC models.
-
-The main features of the highest discrepancy regions, interestingly, seem to remain similar when looking at the 61-90 group, except for the LC model, whose region structure is now easily understandable: the model fails for advanced ages.
-
-As for preprocessing, it seems from lack-of-fit curves and heatmaps that reduce the amount of discrepancy in low performing regions is reduced for both 30-60 and 61-90 age groups.
-
+\color{blue} We can generally observe that the regions’ width and shape change from model to model. Some regions show remarkable mortality estimation errors in specific age groups, others in specific intervals of years, others in a specific range of cohorts. 
+All the models considered show high discrepancy values in the first year of age (Fig. \ref{fig:CT}, age group 0-29, left panels), confirming the difficulty of adequately estimating the mortality of newborns. This situation remains unchanged after the application of Contrast boosting, which, in this case, seems to be not effective (Fig. \ref{fig:CT2}, age group 0-29, left panels).
+For the age group 30-60 in the base model (Fig. \ref{fig:CT}, central panels), the two XGBM models show high discrepancy values after age 45-46, while GBM in the years 2000-2018. The LC model instead evidences high errors in estimating the mortality of cohorts born between 1920 and 1932. Considering the 61-90 age group (Fig. \ref{fig:CT}, right panels), we notice that the GBM model continues to fail in estimating mortality rates in the years 2000-2018, while the LC model (and also APC) mortality rates in the cohorts born between 1920 and 1932.
+By comparing the results for the base models (Fig. \ref{fig:CT}) with those for the boosted ones (Fig. \ref{fig:CT2}), we observe a clear effect of boosting on the GBM model for the 30-60 and 61-90 age groups and the XGBM for the 30-60 age group. \color{black} 
 \begin{figure}%[H]
 \centering
 \subfloat[APC (left: age 0-29; centre: age 30-60 right: age 61-90)]
@@ -390,7 +386,7 @@ As for preprocessing, it seems from lack-of-fit curves and heatmaps that reduce 
 {\includegraphics[width=0.32\textwidth]{xgbm_preproc_0.jpeg}
 \includegraphics[width=0.32\textwidth]{xgbm_preproc.jpeg}
 \includegraphics[width=0.32\textwidth]{xgbm_preproc_61.jpeg}}
-\caption{CTs regions, Base model. Regions presenting a discrepancy value exceeding 3e-04 (age 0-29), 6e-04 (age 30-60), and 0.008 (61-90) are colored in purple.}
+\caption{Contrast trees regions, Base model. Years 1950-2018. Regions presenting a discrepancy value exceeding 3e-04 (age 0-29), 6e-04 (age 30-60), and 0.008 (61-90) are colored in purple.}
 \label{fig:CT}
 \end{figure}
 %
@@ -416,7 +412,7 @@ As for preprocessing, it seems from lack-of-fit curves and heatmaps that reduce 
 {\includegraphics[width=0.32\textwidth]{xgbm_preproc_0_b.jpeg}
 \includegraphics[width=0.32\textwidth]{xgbm_preproc_b.jpeg}
 \includegraphics[width=0.32\textwidth]{xgbm_preproc_61_b.jpeg}}
-\caption{CTs regions, Boosted model. Regions presenting a discrepancy value exceeding 3e-04 (age 0-29), 6e-04 (age 30-60), and 0.008 (61-90) are colored in purple.}
+\caption{Contrast trees regions, Boosted model. Years 1950-2018. Regions presenting a discrepancy value exceeding 3e-04 (age 0-29), 6e-04 (age 30-60), and 0.008 (61-90) are colored in purple.}
 \label{fig:CT2}
 \end{figure}
 %\subsubsection*{Third-level section}
@@ -428,12 +424,11 @@ As for preprocessing, it seems from lack-of-fit curves and heatmaps that reduce 
 %\textit{The Discussion should be succinct and must not contain subheadings.}\\
 \textcolor{blue}{Evaluating, and thus eventually improving, the fit of mortality models is crucial for both demographers and actuaries. 
 Indeed, in particular situations, common in actuarial practice, data quality can turn the mortality estimate difficult. 
-A prime example is the case of small subpopulations where a common method such as the Lee-Carter may not guarantee reliable estimation. In this sense, our proposal fills the gap between mortality modeling and model diagnostics, particularly for nontraditional modeling as a machine learning framework.}
-
-CTs consist of a general method based on machine learning that can be applied to any model, expressed as a regression model, to evaluate the goodness of fit and identify the worst-performing regions in the input space. While, other well-known goodness of fit evaluation criteria, such as Bayesian Information Criterion, Akaike Information Criterion, Schwartz Information Criterion, require the likelihood function, which is not available for machine learning models. Therefore, it provides a unified approach for assessing and comparing the accuracy of both traditional models and machine learning algorithms.
-
-The CTs detection of the regions in which a model worst performs can be considered an evolution of the standard analysis on residuals, in which the detection of the highest residuals is typically assigned to graphical analyzes using heatmaps and scatter plots \cite{CBD09,Villegas2018}, and to summary measures like RMSE and MAPE calculated on the overall input space and not by region.
-Conversely, the decision trees structure of CTs enables quantifying the discrepancy between the estimates provided by a model and the actual observations in each region identified by CTs.
+A prime example is the case of small subpopulations where a common method such as the Lee-Carter may not guarantee reliable estimation. In this sense, our proposal fills the gap between mortality modeling and model diagnostics, particularly for nontraditional modeling as a machine learning framework.\\
+Contrast trees consist of a general method based on machine learning that can be applied to any model, expressed as a regression model, to evaluate the goodness of fit and identify the worst-performing regions in the input space. The main characteristic that discriminates this method from traditional diagnostic tools is automatically identifying the regions in which a given model produces a high error for certain combinations of ages and calendar years.
+Well-known diagnostic tools often used in the literature to assess the goodness-of-fit of a mortality model, such as BIC and AIC, require the likelihood function, which is not available for machine learning models. Therefore, Contrast trees provide a unified approach for assessing and comparing the accuracy of traditional mortality models with machine learning algorithms.}\\
+In Contrast trees, the detection of the regions in which a model worst performs can be considered an evolution of the standard analysis on residuals, in which the detection of the highest residuals is typically assigned to graphical analyzes using heatmaps and scatter plots \cite{CBD09,Villegas2018}, and to summary measures like RMSE and MAPE calculated on the overall input space and not by region.
+Conversely, the decision tree structure of Contrast trees enables quantifying the discrepancy between the estimates provided by a model and the actual observations in each region identified by Contrast trees.
 
 %-------------------------------------------------------------
 %\bibliography{myref}
