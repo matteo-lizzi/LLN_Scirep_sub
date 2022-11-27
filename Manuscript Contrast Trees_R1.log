@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.2.7)  20 NOV 2022 10:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.2.7)  20 NOV 2022 12:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1203,6 +1203,10 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
+Underfull \hbox (badness 10000) in paragraph at lines 519--523
+\T1/ptm/m/n/10 (+20) is avail-able on the Open Sci-ence Frame-work (OSF) at
+ []
+
 
 AED: lastpage setting LastPage
 [11] (Manuscript Contrast Trees_R1.aux)
@@ -1236,10 +1240,10 @@ ocal/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb><C:/Users/Andrew/AppData/L
 ocal/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Andrew/AppData/
 Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Andrew/AppData
 /Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on "Manuscript Contrast Trees_R1.pdf" (11 pages, 5880165 bytes).
+Output written on "Manuscript Contrast Trees_R1.pdf" (11 pages, 5884183 bytes).
 
 PDF statistics:
- 308 PDF objects out of 1000 (max. 8388607)
+ 309 PDF objects out of 1000 (max. 8388607)
  66 named destinations out of 1000 (max. 500000)
  123586 words of extra memory for PDF output out of 128383 (max. 10000000)
 
